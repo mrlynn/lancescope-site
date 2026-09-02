@@ -6,7 +6,9 @@ export default function Section({
   lead,
   children,
   source,
+  id,
 }: {
+  id?: string;
   eyebrow?: string;
   title?: string;
   lead?: React.ReactNode;
@@ -15,7 +17,7 @@ export default function Section({
   source?: string;
 }) {
   return (
-    <section className="max-w-[880px] mx-auto px-6 py-16 md:py-20">
+    <section id={id} className="max-w-[880px] mx-auto px-6 py-16 md:py-20 scroll-mt-16">
       {eyebrow && <div className="eyebrow mb-3">{eyebrow}</div>}
       {title && (
         <h2 className="text-[26px] md:text-[32px] leading-[1.15] font-extrabold tracking-tight

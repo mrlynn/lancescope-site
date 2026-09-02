@@ -13,6 +13,7 @@ import AgentSection from "@/app/components/AgentSection";
 import ByteRail from "@/app/components/ByteRail";
 import Capabilities from "@/app/components/Capabilities";
 import DemoSection from "@/app/components/DemoSection";
+import BuildFromSource from "@/app/components/BuildFromSource";
 import DownloadButton from "@/app/components/DownloadButton";
 import Footer from "@/app/components/Footer";
 import Hero from "@/app/components/Hero";
@@ -98,7 +99,9 @@ export default async function Home() {
           <DemoSection />
         </Section>
 
-        <Section eyebrow="get it" title="Runs on your machine, against your data">
+        <Section eyebrow="get it" title="Runs on your machine, against your data" id="get">
+          {!release.resolved && <BuildFromSource />}
+          {release.resolved && (
           <div className="panel p-6 md:p-8">
             <DownloadButton release={release} />
             <p className="text-[13px] leading-relaxed text-[var(--haze)] mt-6 max-w-[60ch]">
@@ -121,6 +124,7 @@ export default async function Home() {
               — that is how the demand gets measured.
             </p>
           </div>
+          )}
         </Section>
       </main>
       <Footer />

@@ -34,7 +34,7 @@ export default function Nav() {
                        text-[var(--ink)] transition-opacity hover:opacity-90"
             style={{ background: "var(--video)" }}
           >
-            download
+            get it
           </Link>
         </div>
       </nav>

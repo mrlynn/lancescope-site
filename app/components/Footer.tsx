@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { REPO } from "@/app/data/measurements";
 
 export default function Footer() {
@@ -19,12 +20,32 @@ export default function Footer() {
           <a href={`${REPO}/issues`} className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">
             issues
           </a>
+          {/* The about page is reachable from here and nowhere else, on purpose:
+              it is for the reader who has decided the tool is interesting and now
+              wants to know who is behind it. */}
+          <Link href="/about" className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">
+            about
+          </Link>
+          <Link href="/privacy" className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">
+            privacy
+          </Link>
+          <Link href="/terms" className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">
+            terms
+          </Link>
+          <Link href="/attribution" className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">
+            attribution
+          </Link>
           <span className="text-[var(--dim)]">Apache-2.0</span>
         </div>
         <p className="text-[11px] leading-relaxed text-[var(--dim)] mt-8 max-w-[62ch]">
-          An independent tool. Not affiliated with, or supported by, LanceDB. The
-          dot lattice in the mark is derived from theirs, with thanks; the glass is
-          ours. LanceDB is a trademark of its owner.
+          An independent tool. Not affiliated with, endorsed by, or supported by
+          LanceDB. The dot lattice in the mark is derived from theirs, with thanks;
+          the glass is ours. LanceDB and Lance, and their logos, are the property of
+          their owner. Copyright 2026 Michael Lynn, Apache-2.0. Full detail on the{" "}
+          <Link href="/attribution" className="text-[var(--haze)] underline hover:text-[var(--bright)]">
+            attribution page
+          </Link>
+          .
         </p>
       </div>
     </footer>

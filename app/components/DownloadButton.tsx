@@ -19,6 +19,29 @@ export default function DownloadButton({
     Boolean,
   ) as string[];
 
+  // No published release: send the reader to the build instructions rather than to
+  // an empty releases page. A dead download link spends their interest for nothing.
+  if (!release.resolved) {
+    return (
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+        <a
+          href="#get"
+          className={`inline-flex items-center gap-2.5 rounded-sm font-bold tracking-tight
+                      text-[var(--ink)] transition-opacity hover:opacity-90
+                      ${size === "lg" ? "px-6 py-3.5 text-[16px]" : "px-5 py-3 text-[14px]"}`}
+          style={{ background: "var(--video)" }}
+        >
+          <GlassIcon />
+          Run it in five minutes
+        </a>
+        <span className="mono text-[11px] text-[var(--haze)]">
+          open source · Apache-2.0
+          <span className="text-[var(--dim)]"> · signed build coming</span>
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
       <a
