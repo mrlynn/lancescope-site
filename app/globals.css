@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   The dark half of web/app/globals.css, vendored.
+
+   ORIGIN: web/app/globals.css in mrlynn/lancescope, where these values are
+   measured and commented. This is a copy across a repository boundary, so
+   NOTHING CHECKS IT. Two different corals on the site and in the console is the
+   kind of drift nobody notices until a screenshot sits next to the page that
+   describes it — so if you change a token there, change it here in the same
+   sitting, and re-read the contrast notes in the original before you do.
+
+   The console carries a light palette because you read tables in a lit room. A
+   landing page has one look, so the light blocks and the theme toggle are not
+   copied. Everything below is the dark identity, unchanged.
+   --------------------------------------------------------------------------- */
+:root {
+  --ink:    #171513;
+  --ink-2:  #1e1b19;
+  --ink-3:  #241f1c;
+  --rule:   #5d534d;
+  --haze:   #a3958c;   /* 6.3:1 */
+  --body:   #c3b5ab;   /* 9.1:1 */
+  --bright: #f4ebe8;   /* 15.5:1 */
+  --dim:    #918379;   /* 5.0:1 */
+
+  --index:  #d9a05b;   /* what finding it costs */
+  --video:  #ff734a;   /* what playing it costs — LanceDB coral */
+  --index-rgb: 217 160 91;
+  --video-rgb: 255 115 74;
+
+  --hairline: rgb(93 83 77 / 0.45);
+  --rail:     rgb(23 21 19 / 0.97);
+  --dots:     #2e2724;
+
+  --font-sans: var(--font-schibsted), system-ui, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, Menlo, monospace;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background: var(--ink);
+  color: var(--body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The ambient dot field, at the same 26px pitch as the console and lancedb.com.
+   Fixed rather than scrolling: on a long page a scrolling field reads as texture
+   moving under the content, which is a distraction the console never has because
+   its screens do not scroll far. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--dots) 1px, transparent 1px);
+  background-size: 26px 26px;
+  opacity: 0.55;
+}
+
+.mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--haze);
+}
+
+.panel {
+  background: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+.rule-top { border-top: 1px solid var(--hairline); }

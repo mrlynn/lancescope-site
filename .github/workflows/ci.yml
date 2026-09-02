@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      # The page fetches the GitHub release API at build time. It falls back
+      # cleanly when that is unreachable (app/lib/release.ts), and this build
+      # exercises exactly that path — which is worth knowing still works.
+      - run: npm run build
