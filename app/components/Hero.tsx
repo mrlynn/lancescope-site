@@ -22,10 +22,10 @@ export default function Hero({ release }: { release: Release }) {
       </h1>
 
       <p className="text-[16px] md:text-[18px] leading-relaxed text-[var(--body)] mt-6 max-w-[58ch]">
-        LanceScope is a read-only workbench for LanceDB: schema, versions, indices,
-        fragments and rows, with the byte cost of every read shown as you go. The
-        bytes a search touches and the bytes a table holds live in different files.
-        It measures both.
+        LanceScope is a workbench for reading LanceDB datasets: schema, versions,
+        indices, fragments and rows, with the byte cost of every read shown as you
+        go. The bytes a search touches and the bytes a table holds live in different
+        files. It measures both.
       </p>
 
       <div className="mt-9">

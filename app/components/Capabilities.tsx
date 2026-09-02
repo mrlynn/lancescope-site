@@ -11,7 +11,7 @@ const CARDS = [
   },
   {
     title: "Says what it already knows",
-    body: "Seven rules over metadata — an unindexed vector column, small-file counts that would be misleading to act on, tombstone debt — each carrying the numbers it was derived from. No model is involved in any of them.",
+    body: "Nine rules over metadata — an unindexed vector column, small-file counts that would be misleading to act on, tombstone debt, a manifest that understates the size of the thing it describes — each carrying the numbers it was derived from. No model is involved in any of them.",
   },
   {
     title: "Adds language, optionally",

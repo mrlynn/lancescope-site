@@ -19,10 +19,12 @@ export const CORPUS = {
   segments: 162,
   videoBytes: "2.65 GB",
   videoBytesNum: 2_650_000_000,
-  searchBytes: "20.1 MB",
-  searchBytesNum: 20_100_000,
+  searchBytes: "20.0 MB",
+  searchBytesNum: 20_040_000,
   ratio: 132,
-  source: "README.md — measured on the 16-talk reference corpus",
+  source:
+    "Re-measured on the reference corpus, 2 September 2026: 2.651 GB in .blob " +
+    "side files against 20.04 MB for the moments table a search actually reads.",
 } as const;
 
 /** The operations rail. `null` means zero video bytes, and zero is not plotted.
@@ -58,7 +60,11 @@ export const OPS: Op[] = [
 export const RAIL_MIN = 1_000;
 export const RAIL_MAX = 2_650_000_000;
 
-export const OPS_SOURCE = "README.md — the same table `make verify` reproduces";
+export const OPS_SOURCE =
+  "Re-measured by `make verify` on 2 September 2026, on the 16-talk corpus " +
+  "(1,114 moments, 162 segments): vector search 3.45 MB index and 0 B video, " +
+  "FTS 0.11 MB and 0 B, blob handle 2,722 B, cold segment 17.0 MB, warm seek " +
+  "262,144 B. The check that asserts search reads zero video bytes passes.";
 
 /** The two true numbers. Both correct; they answer different questions.
  *
@@ -70,16 +76,26 @@ export const TWO_NUMBERS = {
   manifest: "43,424 bytes",
   actual: "2.65 GB",
   why: "tracked_files() lists no .blob paths, so the manifest cannot see the side files where the video lives.",
-  source: "docs/guide/explain-blobs.md",
+  source:
+    "docs/guide/explain-blobs.md. Lance says the same thing in its own API " +
+    "documentation — \u201cBlob v2 payloads live in separate blob files and are " +
+    "not counted\u201d (lance/optimize.py) — so this is the format behaving as " +
+    "designed, not a defect.",
 } as const;
 
 /** Someone else's data — the rebuttal to "your corpus is rigged." */
 export const OPENVID = {
+  /** The root you point the console at; the table inside it is `train.lance`. */
   uri: "hf://datasets/lance-format/openvid-lance/data",
   rows: "937,957",
   openBytes: "24,568 bytes",
   browseBytes: "about 73 KB",
-  source: "README.md — the same claim, checked against a dataset this project did not build",
+  source:
+    "Re-opened over the network on 2 September 2026: 937,957 rows, 24,568 bytes " +
+    "and 2 IO operations to open, in about a third of a second — counting the " +
+    "rows then cost nothing further. The row count matches LanceDB's own page " +
+    "for the dataset (docs.lancedb.com/datasets/openvid), which also states that " +
+    "the MP4 bytes live in a side blob file that search and filtering never read.",
 } as const;
 
 export const MCP_INSTALL =

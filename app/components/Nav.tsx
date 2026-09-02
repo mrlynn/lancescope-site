@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Mark from "@/app/components/Mark";
+import ThemeToggle from "@/app/components/ThemeToggle";
 import { REPO } from "@/app/data/measurements";
 
 export default function Nav() {
@@ -26,6 +27,7 @@ export default function Nav() {
           <a href={REPO} className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">
             github
           </a>
+          <ThemeToggle />
           <Link
             href="/download"
             className="px-3 py-1.5 rounded-sm font-semibold tracking-wide

@@ -10,9 +10,16 @@
    describes it — so if you change a token there, change it here in the same
    sitting, and re-read the contrast notes in the original before you do.
 
-   The console carries a light palette because you read tables in a lit room. A
-   landing page has one look, so the light blocks and the theme toggle are not
-   copied. Everything below is the dark identity, unchanged.
+   Dark is the identity and the default. Light is an override, and it is here for
+   the same reason the console has one: the site and the app should not disagree
+   about what LanceScope looks like when someone arrives from a lit room and then
+   downloads it.
+
+   Defined twice on purpose, exactly as the console does it: once for "the OS says
+   light and nobody has chosen otherwise", once for an explicit choice. CSS cannot
+   share one declaration block between a media query and an attribute selector.
+   Keep the two in step — changing one without the other is the bug this comment
+   exists to catch.
    --------------------------------------------------------------------------- */
 :root {
   --ink:    #171513;
@@ -37,10 +44,57 @@
   --font-mono: var(--font-martian), ui-monospace, Menlo, monospace;
 }
 
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ink:    #faf7f5;
+    --ink-2:  #ffffff;
+    --ink-3:  #f2ede9;
+    --rule:   #ddd2ca;
+    --haze:   #615850;   /* 6.5:1 */
+    --body:   #4a423c;   /* 9.2:1 */
+    --bright: #1a1614;   /* 16.8:1 */
+    --dim:    #75695f;   /* 5.0:1 */
+
+    /* Both accents darkened for a light ground: the dark values sit at about 2:1
+       against white, which is not a quiet colour but an unreadable one. */
+    --index:  #9c5f14;
+    --video:  #cc3d10;
+    --index-rgb: 156 95 20;
+    --video-rgb: 204 61 16;
+
+    --hairline: rgb(74 66 60 / 0.16);
+    --rail:     rgb(255 255 255 / 0.97);
+    --dots:     #e7ded7;
+  }
+}
+
+:root[data-theme="light"] {
+  --ink:    #faf7f5;
+  --ink-2:  #ffffff;
+  --ink-3:  #f2ede9;
+  --rule:   #ddd2ca;
+  --haze:   #615850;
+  --body:   #4a423c;
+  --bright: #1a1614;
+  --dim:    #75695f;
+
+  --index:  #9c5f14;
+  --video:  #cc3d10;
+  --index-rgb: 156 95 20;
+  --video-rgb: 204 61 16;
+
+  --hairline: rgb(74 66 60 / 0.16);
+  --rail:     rgb(255 255 255 / 0.97);
+  --dots:     #e7ded7;
+}
+
 html {
-  color-scheme: dark;
+  color-scheme: light dark;
   scroll-behavior: smooth;
 }
+
+:root[data-theme="light"]  { color-scheme: light; }
+:root[data-theme="dark"]   { color-scheme: dark; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

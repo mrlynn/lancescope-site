@@ -82,7 +82,7 @@ export default async function Home() {
           <Capabilities />
         </Section>
 
-        <Section eyebrow="what it does not do" title="It does not write">
+        <Section eyebrow="the write boundary" title="What it will and will not touch">
           <ReadOnly />
         </Section>
 
@@ -102,9 +102,13 @@ export default async function Home() {
           <div className="panel p-6 md:p-8">
             <DownloadButton release={release} />
             <p className="text-[13px] leading-relaxed text-[var(--haze)] mt-6 max-w-[60ch]">
-              Signed and notarised. Nothing leaves your machine: there is no
-              telemetry, no account, and no network call the app makes on its own
-              except to a language model you configured yourself.
+              {release.resolved && "Signed and notarised. "}
+              There is no telemetry and no account. It reaches the network in
+              exactly three cases, all of them ones you asked for: a dataset you
+              pointed it at over{" "}
+              <code className="mono text-[12px]">hf://</code>, which it reads from
+              huggingface.co; a language model, if you configured one; and this
+              page, to find the current version.
             </p>
             <p className="text-[13px] leading-relaxed text-[var(--haze)] mt-3">
               On an Intel Mac?{" "}
