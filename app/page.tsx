@@ -13,6 +13,7 @@ import AgentSection from "@/app/components/AgentSection";
 import ByteRail from "@/app/components/ByteRail";
 import Capabilities from "@/app/components/Capabilities";
 import DemoSection from "@/app/components/DemoSection";
+import TryItLive from "@/app/components/TryItLive";
 import BuildFromSource from "@/app/components/BuildFromSource";
 import DownloadButton from "@/app/components/DownloadButton";
 import Footer from "@/app/components/Footer";
@@ -97,6 +98,16 @@ export default async function Home() {
 
         <Section eyebrow="also included">
           <DemoSection />
+        </Section>
+
+        {/* Before "get it" rather than after: someone deciding whether to download
+            a 160 MB DMG is better served by looking at the thing first. */}
+        <Section
+          eyebrow="try it"
+          title="Or look at one first, in a browser"
+          id="try"
+        >
+          <TryItLive />
         </Section>
 
         <Section eyebrow="get it" title="Runs on your machine, against your data" id="get">

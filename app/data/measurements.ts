@@ -103,6 +103,15 @@ export const MCP_INSTALL =
 
 export const REPO = "https://github.com/mrlynn/lancescope";
 
+/** The public console — the app itself, running, with nothing to install.
+ *
+ *  Read-only and pinned to one dataset by `LANCESCOPE_KIOSK=1`, which unmounts the
+ *  routes that write and rate limits the ones that read over the network. What it
+ *  shows is real: real schema, real findings, real byte counters from Lance's own
+ *  IO stats. See "Running it in public" in the guide for what that mode does and
+ *  why the dataset it points at is a small one. */
+export const DEMO = "https://demo.lancescope.mlynn.dev";
+
 /** Shown when the GitHub release API cannot be reached. See app/lib/release.ts. */
 export const DMG_FALLBACK = {
   url: `${REPO}/releases/latest`,

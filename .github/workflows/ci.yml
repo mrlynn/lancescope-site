@@ -17,6 +17,13 @@ jobs:
       - run: npm ci
       - run: npx tsc --noEmit
       - run: npm run lint
+      # The guide in content/guide/ is vendored from mrlynn/lancescope, where six of
+      # its pages are generated from the code and `make test` fails when they drift.
+      # This is the same guarantee one repository further out: if the pinned commit's
+      # guide no longer matches what is committed here, the site does not deploy a
+      # stale rendering of a generated file. It also compares the palette tokens in
+      # app/globals.css, which were a hand-copy that nothing checked.
+      - run: npm run sync:check
       # The page fetches the GitHub release API at build time. It falls back
       # cleanly when that is unreachable (app/lib/release.ts), and this build
       # exercises exactly that path — which is worth knowing still works.
