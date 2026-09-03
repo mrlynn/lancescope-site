@@ -23,6 +23,9 @@ export default function Footer() {
           {/* The about page is reachable from here and nowhere else, on purpose:
               it is for the reader who has decided the tool is interesting and now
               wants to know who is behind it. */}
+          <Link href="/docs/index" className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">
+            docs
+          </Link>
           <Link href="/about" className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">
             about
           </Link>

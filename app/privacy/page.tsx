@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Prose, { A, H2, P, UL } from "@/app/components/Prose";
+import { DEMO } from "@/app/data/measurements";
 
 export const metadata: Metadata = {
   title: "Privacy — LanceScope",
@@ -48,6 +49,25 @@ export default function Privacy() {
         latest release. That request is made by the server, once an hour, not by your
         browser. Clicking a download or GitHub link does take you to GitHub, at which
         point their policies apply.
+      </P>
+
+      <H2>The live demo</H2>
+      <P>
+        <A href={DEMO}>demo.lancescope.mlynn.dev</A> is a second host, and a separate
+        one: it runs the console as a container rather than on Vercel, so it keeps its
+        own request logs of the same ordinary kind. It has no account, no cookie and
+        no telemetry, and it stores nothing you do on it — the settings file is the
+        only thing that build can write, and the demo is configured so that nothing
+        can write it.
+      </P>
+      <P>
+        One thing is worth naming plainly. The demo reads its dataset from
+        huggingface.co over the network as you browse, so the queries you run there
+        become requests to HuggingFace from the demo server. They carry no identifier
+        of yours — HuggingFace sees the server, not you — but they do mean your
+        activity leaves that machine. To keep queries in one place, run LanceScope on
+        your own computer against a database on your own disk, where it reaches the
+        network only in the three cases named on the front page.
       </P>
 
       <H2>The app</H2>
