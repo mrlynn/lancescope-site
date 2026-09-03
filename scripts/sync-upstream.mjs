@@ -52,10 +52,27 @@ function fetchTree() {
   // curl and tar rather than a dependency: this runs in CI and on a laptop, and
   // adding a tarball client to a marketing site's package.json to read 24 markdown
   // files would be the wrong trade.
-  execFileSync("bash", ["-c", `curl -fsSL "${url}" | tar -xz -C "${dir}"`], {
-    stdio: ["ignore", "ignore", "inherit"],
-  });
+  try {
+    // `pipefail` is load-bearing: without it the pipeline exits with tar's status,
+    // and tar is perfectly happy to extract nothing from an empty stream. A 404
+    // from curl then looked like a successful sync of zero files.
+    execFileSync("bash", ["-o", "pipefail", "-c",
+                          `curl -fsSL "${url}" | tar -xz -C "${dir}"`], {
+      stdio: ["ignore", "ignore", "ignore"],
+    });
+  } catch {
+    // The commonest cause by far is a ref that is not in that repository — a sha
+    // from the wrong checkout, or one that was never pushed. Saying so beats the
+    // ERR_INVALID_ARG_TYPE that an empty extract directory produces two lines
+    // further down, which names nothing that would help.
+    throw new Error(
+      `could not fetch ${repo}@${ref}\n` +
+      `  Is that commit pushed to ${repo}? The pin is a commit in the *upstream* ` +
+      `repository,\n  not in this one.`,
+    );
+  }
   const [inner] = fs.readdirSync(dir);
+  if (!inner) throw new Error(`${repo}@${ref} extracted to nothing`);
   return path.join(dir, inner);
 }
 

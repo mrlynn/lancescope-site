@@ -1,5 +1,5 @@
 {
   "repo": "mrlynn/lancescope",
-  "ref": "d1d83355213e787631fcbd33c1ba45cfbce84d27",
+  "ref": "70a6edb643b51d08ddf190606fd4d849776deb8d",
   "why": "The commit this site's vendored guide was taken from. A commit and not a branch, so a deploy renders a guide somebody chose. Move it with: npm run sync -- --ref <sha>"
 }
