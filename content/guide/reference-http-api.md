@@ -26,6 +26,7 @@ Read-only. Nothing here writes to a dataset, and nothing materialises a blob col
 | `GET` | `/catalog/tables/{name:path}/blob` | Stream the bytes of one heavy cell, honouring HTTP Range. |
 | `GET` | `/catalog/tables/{name:path}/compare` | Two versions of one table, side by side and pinned. |
 | `POST` | `/catalog/tables/{name:path}/compare/query` | The same query against both versions — the before and after of an operation. |
+| `GET` | `/catalog/tables/{name:path}/estimate` | What a full pass over these columns weighs, without reading any of them. |
 | `GET` | `/catalog/tables/{name:path}/findings` | What is worth saying about this table, derived rather than generated. |
 | `GET` | `/catalog/tables/{name:path}/fragments` | The physical layout: what each fragment holds and what it weighs. |
 | `GET` | `/catalog/tables/{name:path}/indices` | What is indexed on this table — and, more usefully, what isn't. |
@@ -35,6 +36,7 @@ Read-only. Nothing here writes to a dataset, and nothing materialises a blob col
 | `POST` | `/catalog/tables/{name:path}/query/explain` | The plan, without running the query. |
 | `POST` | `/catalog/tables/{name:path}/query/validate` | Does this predicate parse, and how many rows does it match. |
 | `GET` | `/catalog/tables/{name:path}/rows` | Browse rows, without ever materialising a blob. |
+| `GET` | `/catalog/tables/{name:path}/run-config` | What a training run must pin about this table, as a block it can commit. |
 | `GET` | `/catalog/tables/{name:path}/versions` | The table's history, newest first, with what each version changed. |
 
 ## The language layer
@@ -47,7 +49,10 @@ Optional. Every route answers with nothing configured, and says what is missing.
 | `GET` | `/intel/capabilities` | What the language layer is right now, and why it is that. |
 | `GET` | `/intel/meter` | Tokens and dollars spent by this process, beside the bytes it read. |
 | `POST` | `/intel/meter/reset` | — |
+| `GET` | `/intel/models` | What could be picked for this provider, and where each suggestion came from. |
 | `POST` | `/intel/selftest` | One real call, end to end, reported honestly. |
+| `DELETE` | `/intel/spend` | Forget the history. |
+| `GET` | `/intel/spend` | What the key has cost, broken down by day, by task and by model. |
 | `POST` | `/intel/tables/{name:path}/filter` | English in, a Lance predicate out — as a draft, never as an action. |
 | `POST` | `/intel/tables/{name:path}/summary` | Describe a table in a few sentences, and remember the answer. |
 

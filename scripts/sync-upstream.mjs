@@ -110,15 +110,38 @@ function diffGuide(want, have) {
 
 /* ---------------------------------------------------------------------- css */
 
-/** Every `--token: value` in a file, last declaration winning per block.
+/** The dark palette a file declares, wherever it declares it.
  *
- *  Deliberately not a parse of the cascade. The question is only "does this site
- *  claim a different value for a name than the console does", and for that a flat
- *  map of the darkest-declared value is enough — both files declare the dark
- *  palette first and override it under the same two light selectors. */
+ *  This used to take the first declaration of each name and say so: "both files
+ *  declare the dark palette first and override it under the same two light
+ *  selectors". That was true when it was written and is not any more. The console
+ *  moved to light-first, with dark under `:root[data-theme="dark"]`; this site is
+ *  still dark-first, because dark is its identity and the comment at the top of
+ *  app/globals.css says so.
+ *
+ *  Comparing first-declaration to first-declaration then compared this site's dark
+ *  against the console's light and reported all fifteen shared tokens as drift —
+ *  a check that fails on every token cannot tell you which one someone changed.
+ *
+ *  So: read the dark block by name where a file has one, and fall back to the
+ *  first `:root` where dark *is* the first block. Both halves stay comparable
+ *  whichever way round either file decides to declare itself. */
+function darkBlock(css) {
+  // The first `[data-theme="dark"]` block that actually declares colours. Both
+  // files also carry a one-line `:root[data-theme="dark"] { color-scheme: dark; }`,
+  // and matching that one yields a palette of nothing — which compares equal to
+  // everything and turns this check into decoration. Requiring a custom property
+  // is what tells the two apart.
+  for (const m of css.matchAll(/:root\[data-theme="dark"\]\s*{([^}]*)}/g)) {
+    if (/--[a-z0-9-]+\s*:/i.test(m[1])) return m[1];
+  }
+  const first = css.match(/:root\s*{([^}]*)}/);
+  return first ? first[1] : css;
+}
+
 function tokens(css) {
   const found = new Map();
-  for (const m of css.matchAll(/(--[a-z0-9-]+)\s*:\s*([^;}]+)/gi)) {
+  for (const m of darkBlock(css).matchAll(/(--[a-z0-9-]+)\s*:\s*([^;}]+)/gi)) {
     const name = m[1];
     const value = m[2].trim().replace(/\s+/g, " ");
     if (!found.has(name)) found.set(name, value);

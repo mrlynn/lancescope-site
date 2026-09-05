@@ -23,22 +23,22 @@
    --------------------------------------------------------------------------- */
 :root {
   --ink:    #171513;
-  --ink-2:  #1e1b19;
-  --ink-3:  #241f1c;
-  --rule:   #5d534d;
+  --ink-2:  #221e1c;   /* 1.10:1 off the canvas — an edge, not a colour change */
+  --ink-3:  #2a2523;   /* 1.20:1 */
+  --rule:   #7b6d66;   /* 3.7 / 3.3 / 3.0 — was #5d534d at 2.4 / 2.3 / 2.2 */
   --haze:   #a3958c;   /* 6.3:1 */
   --body:   #c3b5ab;   /* 9.1:1 */
   --bright: #f4ebe8;   /* 15.5:1 */
-  --dim:    #918379;   /* 5.0:1 */
+  --dim:    #988b82;   /* 5.5 / 5.0 / 4.6 — was #918379, which failed on a well */
 
   --index:  #d9a05b;   /* what finding it costs */
   --video:  #ff734a;   /* what playing it costs — LanceDB coral */
   --index-rgb: 217 160 91;
   --video-rgb: 255 115 74;
 
-  --hairline: rgb(93 83 77 / 0.45);
+  --hairline: rgb(123 109 102 / 0.5);
   --rail:     rgb(23 21 19 / 0.97);
-  --dots:     #2e2724;
+  --dots:     #3a322d;
 
   --font-sans: var(--font-schibsted), system-ui, sans-serif;
   --font-mono: var(--font-martian), ui-monospace, Menlo, monospace;
