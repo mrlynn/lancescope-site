@@ -24,7 +24,7 @@ import RatioGrid from "@/app/components/RatioGrid";
 import ReadOnly from "@/app/components/ReadOnly";
 import Section from "@/app/components/Section";
 import TwoNumbers from "@/app/components/TwoNumbers";
-import { CORPUS, OPENVID, TWO_NUMBERS } from "@/app/data/measurements";
+import { CHECKS, CORPUS, OPENVID, TWO_NUMBERS } from "@/app/data/measurements";
 import { getLatestRelease } from "@/app/lib/release";
 
 export default async function Home() {
@@ -80,7 +80,7 @@ export default async function Home() {
           <OpenVid />
         </Section>
 
-        <Section eyebrow="what it does" title="Four things, precisely">
+        <Section eyebrow="what it does" title="Six things, precisely" source={CHECKS.source}>
           <Capabilities />
         </Section>
 
@@ -117,12 +117,15 @@ export default async function Home() {
             <DownloadButton release={release} />
             <p className="text-[13px] leading-relaxed text-[var(--haze)] mt-6 max-w-[60ch]">
               {release.resolved && "Signed and notarised. "}
-              There is no telemetry and no account. It reaches the network in
-              exactly three cases, all of them ones you asked for: a dataset you
-              pointed it at over{" "}
+              There is no telemetry and no account. It reaches the network in four
+              cases: a dataset you pointed it at over{" "}
               <code className="mono text-[12px]">hf://</code>, which it reads from
-              huggingface.co; a language model, if you configured one; and this
-              page, to find the current version.
+              huggingface.co; a language model, if you configured one; this page, to
+              find the current version; and once a day on launch, to ask GitHub
+              whether there is a newer release. That last one is the only request it
+              makes without being asked, it sends nothing but the request itself, and
+              it never installs anything — it tells you, and the button opens the
+              release page.
             </p>
             <p className="text-[13px] leading-relaxed text-[var(--haze)] mt-3">
               On an Intel Mac?{" "}

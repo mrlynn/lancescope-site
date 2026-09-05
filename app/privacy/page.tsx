@@ -11,7 +11,7 @@ export default function Privacy() {
   return (
     <Prose
       title="Privacy"
-      updated="2 September 2026"
+      updated="5 September 2026"
       lead="Two different things are worth separating: this website, and the LanceScope app you might download from it. Neither collects anything about you, and the reasons are slightly different."
     >
       <H2>This website</H2>
@@ -67,14 +67,14 @@ export default function Privacy() {
         of yours — HuggingFace sees the server, not you — but they do mean your
         activity leaves that machine. To keep queries in one place, run LanceScope on
         your own computer against a database on your own disk, where it reaches the
-        network only in the three cases named on the front page.
+        network only in the four cases named on the front page.
       </P>
 
       <H2>The app</H2>
       <P>
         LanceScope runs on your machine and reads your data. It has no account, no
         sign-in, no licence check and no telemetry — nothing reports back to anyone,
-        including us. It makes network requests in exactly three cases, all of which
+        including us. It makes network requests in exactly four cases, three of which
         you initiate:
       </P>
       <UL>
@@ -88,11 +88,21 @@ export default function Privacy() {
           on.
         </li>
         <li>Downloading the app itself, from GitHub.</li>
+        <li>
+          <strong className="text-[var(--bright)]">The update check</strong>, and it
+          is the one you do not initiate. Once a day on launch — and whenever you
+          pick <em>Check for Updates</em> — the app fetches a small file from this
+          project&rsquo;s GitHub releases to see whether a newer version exists. It
+          sends nothing but the request: no identifier, no version, no data about
+          your machine or your database. If there is a newer one it says so; it does
+          not download or install anything.
+        </li>
       </UL>
       <P>
         Your database contents, file paths, queries and settings stay on your
-        machine. The only file the app writes for itself is its own settings file, in
-        your user config directory.
+        machine. The files the app writes for itself all live in your user config
+        directory: its settings, the size and position of its window, and the date it
+        last checked for an update. None of them holds anything about your data.
       </P>
 
       <H2>Contact</H2>

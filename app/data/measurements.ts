@@ -118,3 +118,20 @@ export const DMG_FALLBACK = {
   minMacOS: "macOS 11.0 or later",
   arch: "Apple Silicon",
 } as const;
+
+/** What a check that reads columns costs, against the reference corpus.
+ *
+ *  The other numbers on this page are about reads that touch no data at all. These
+ *  are the opposite — the first thing in the tool that opens columns rather than
+ *  manifests — and they are here because the interesting property is that it is
+ *  still kilobytes, and still none of the video.
+ */
+export const CHECKS = {
+  missingContent: "11.9 KB–43.4 KB",
+  duplicates: "6.8 KB–43.4 KB",
+  blobUntouched: "2.65 GB",
+  source:
+    "docs/guide/howto-check-data.md, measured on the reference corpus: a " +
+    "missing-content check reads 11.9 KB–43.4 KB and none of the 2.65 GB of blob " +
+    "payload.",
+} as const;
