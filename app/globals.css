@@ -23,13 +23,13 @@
    --------------------------------------------------------------------------- */
 :root {
   --ink:    #171513;
-  --ink-2:  #221e1c;
-  --ink-3:  #2a2523;
-  --rule:   #7b6d66;
+  --ink-2:  #221e1c;   /* 1.10:1 off the canvas — an edge, not a colour change */
+  --ink-3:  #2a2523;   /* 1.20:1 */
+  --rule:   #7b6d66;   /* 3.7 / 3.3 / 3.0 — was #5d534d at 2.4 / 2.3 / 2.2 */
   --haze:   #a3958c;   /* 6.3:1 */
   --body:   #c3b5ab;   /* 9.1:1 */
   --bright: #f4ebe8;   /* 15.5:1 */
-  --dim:    #988b82;   /* 5.0:1 */
+  --dim:    #988b82;   /* 5.5 / 5.0 / 4.6 — was #918379, which failed on a well */
 
   --index:  #d9a05b;   /* what finding it costs */
   --video:  #ff734a;   /* what playing it costs — LanceDB coral */
