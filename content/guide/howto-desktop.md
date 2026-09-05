@@ -36,6 +36,22 @@ they are two gigabytes for one screen. So in a packaged build the demo lists its
 corpus and refuses to search it, with a message saying why. Run from a checkout for
 that.
 
+It does **not** carry `ffmpeg` either, and that one narrows a promise rather than a
+demo. **The app ingests images and PDFs. Video and audio are a checkout capability.**
+
+The decision behind that is worth stating rather than leaving to be discovered. Pillow,
+pypdfium2 and pypdf come to 26 MB, which turns "this build cannot decode a JPEG" into
+"this build ingests images and PDFs" and is plainly worth it. ffmpeg is a binary rather
+than a wheel, an order of magnitude larger, and shipping it inside a signed and
+notarised application is a licensing decision nobody has made. Ambiguity about that is
+more damaging than the limitation, so the ingest screen names it **before** a folder is
+chosen — a build that lets you pick a directory of video and then greys the row out is
+the same limitation discovered late and read as a fault.
+
+`ingest/core/binaries.py` reports it per medium in the same three-state vocabulary a
+connection uses, so a missing decoder is a capability with a reason rather than an
+error at file 312. `brew install ffmpeg` and a checkout does all four.
+
 ## Why an app rather than the launcher
 
 `LanceScope.command` is handed to your login shell, and whatever your shell does
@@ -117,6 +133,64 @@ something that could have been said immediately.
 The script builds, signs with the hardened runtime, verifies the signature before
 spending a notarisation round trip, submits the DMG, waits, and staples the ticket so
 the app opens offline on a machine that has never seen it.
+
+## Signing updates
+
+A release can also carry an artifact an installed copy would accept as an update.
+That needs a second key, unrelated to Apple's:
+
+```bash
+npx @tauri-apps/cli@2.11.4 signer generate -w ~/.lancescope-updater.key
+```
+
+The **public** half goes in `desktop/src-tauri/tauri.conf.json` under
+`plugins.updater.pubkey`, and is committed — it is public by design, and every
+installed copy carries it in order to check what it is offered.
+
+The **private** half never leaves your machine or the repository's secrets. Two
+variables name it and they are not interchangeable:
+
+| variable | holds |
+| --- | --- |
+| `TAURI_SIGNING_PRIVATE_KEY_PATH` | a path to the key file |
+| `TAURI_SIGNING_PRIVATE_KEY` | the key itself, as a string |
+
+Locally you have a file, so:
+
+```bash
+TAURI_SIGNING_PRIVATE_KEY_PATH=~/.lancescope-updater.key \
+TAURI_SIGNING_PRIVATE_KEY_PASSWORD=... \
+./desktop/sign.sh
+```
+
+In CI there is no file, so the secret holds the contents:
+
+```bash
+gh secret set TAURI_SIGNING_PRIVATE_KEY < ~/.lancescope-updater.key
+gh secret set TAURI_SIGNING_PRIVATE_KEY_PASSWORD
+```
+
+Lose the private key and no copy anybody has installed can ever be updated again,
+because the public half they carry will not verify anything else. It belongs
+wherever the Apple credentials belong.
+
+Without it the build is exactly what it was: an app and a disk image, signed and
+notarised. `sign.sh` says which of the two it is doing rather than quietly producing
+less.
+
+### Why the tarball is built where it is
+
+`tauri.conf.json` does **not** set `createUpdaterArtifacts`, and should not. That
+option makes the bundler write the update tarball during the build — which is
+before the Mach-O binaries inside are signed, before the entitlements are
+reapplied, before notarisation and before the ticket is stapled. It would ship an
+update Gatekeeper refuses on arrival, which is worse than shipping none.
+
+So `sign.sh` builds it by hand, immediately after `xcrun stapler staple`, for the
+same reason the disk image is rebuilt there. A tar taken at that point carries the
+ticket in its file tree: unpacked on a machine that has never seen the app and has
+no network, it still passes `stapler validate`, and `spctl --assess` reports
+`source=Notarized Developer ID`.
 
 ### What signing proves, and what it does not
 

@@ -1,5 +1,5 @@
 {
   "repo": "mrlynn/lancescope",
-  "ref": "afa4faf",
+  "ref": "bc32cbf",
   "why": "The commit this site's vendored guide was taken from. A commit and not a branch, so a deploy renders a guide somebody chose. Move it with: npm run sync -- --ref <sha>"
 }

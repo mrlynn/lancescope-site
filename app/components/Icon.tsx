@@ -73,8 +73,11 @@ const PATHS: Record<IconName, React.ReactNode> = {
     </>
   ),
 
-  // The five console tabs. Each says what the tab reads, so the row is scannable
-  // before the labels are.
+  // The console's own glyphs. Four of them name the sections of its Table screen —
+  // schema, versions, indices, fragments — and the rest name what its other screens
+  // read. Each says what it reads, so a row of them is scannable before the labels
+  // are. They were "the five console tabs" until the tab strip became five screens
+  // with sections under one of them.
   schema: (
     <>
       <path d="M3.5 5h13M3.5 10h13M3.5 15h13" />
