@@ -16,12 +16,13 @@ const martian = Martian_Mono({
 });
 
 const DESCRIPTION =
-  "A workbench for reading LanceDB datasets: schema, versions, indices, fragments " +
-  "and rows, with the byte cost of every read shown as you go.";
+  "A read-only workbench for LanceDB. Schema, versions, indices, fragments and " +
+  "rows; why a query was slow; what a table costs a training run; ten rules that " +
+  "have already looked — with the bytes every answer cost printed beside it.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://lancescope.mlynn.dev"),
-  title: "LanceScope — see what a LanceDB dataset costs to read",
+  title: "LanceScope — a read-only workbench for LanceDB",
   description: DESCRIPTION,
   openGraph: {
     title: "LanceScope",

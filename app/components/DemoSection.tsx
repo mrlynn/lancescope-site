@@ -1,8 +1,13 @@
 /** Secondary, and labelled a demo.
  *
  *  The repo moved this off `/` for a reason: leading with it made the demo look
- *  like the product. It keeps that position here.
+ *  like the product. It keeps that position here — but it now arrives with its own
+ *  screenshot, because the one thing it does that the console cannot is show the
+ *  claim and the media in the same frame.
  */
+import Shot from "@/app/components/Shot";
+import { SHOTS } from "@/app/data/measurements";
+
 export default function DemoSection() {
   return (
     <div className="panel p-6">
@@ -15,7 +20,10 @@ export default function DemoSection() {
         <span className="text-[var(--bright)]">the video and its index are the same table</span>.
         Searching the whole corpus reads zero bytes of video — not very little, zero.
       </p>
-      <p className="text-[13px] leading-relaxed text-[var(--haze)] mt-4 max-w-[62ch]">
+
+      <Shot shot={SHOTS.video} className="mt-6" />
+
+      <p className="text-[13px] leading-relaxed text-[var(--haze)] mt-6 max-w-[62ch]">
         It needs a built corpus and a local embedding model, so it is not in the
         packaged app: the DMG deliberately ships without torch, and the demo screen
         says so rather than failing quietly. Build it from the repo to run it.

@@ -1,14 +1,21 @@
 import Link from "next/link";
-import { REPO } from "@/app/data/measurements";
+import { DEMO, REPO } from "@/app/data/measurements";
 
 export default function Footer() {
   return (
     <footer className="border-t border-[var(--hairline)] mt-10">
       <div className="max-w-[880px] mx-auto px-6 py-12">
+        {/* This said the hosted console was "planned" for longer than it was
+            planned — it has been live at demo.lancescope.mlynn.dev since, and the
+            page above links to it four times. A footer promising a thing the reader
+            has already been offered is the page failing to notice its own product. */}
         <p className="text-[13px] leading-relaxed text-[var(--haze)] max-w-[62ch]">
-          A hosted, read-only console you can try without installing anything is
-          planned. Until then the app runs on your machine, against your data, and
-          sends nothing anywhere.
+          There is a{" "}
+          <a href={DEMO} className="text-[var(--body)] underline hover:text-[var(--bright)]">
+            read-only console
+          </a>{" "}
+          you can open without installing anything. The app itself runs on your
+          machine, against your data, and sends nothing anywhere.
         </p>
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mono text-[11px] mt-7">
           <a href={REPO} className="text-[var(--haze)] hover:text-[var(--bright)] transition-colors">

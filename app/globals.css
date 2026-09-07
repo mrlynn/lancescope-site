@@ -140,6 +140,99 @@ body::before {
 
 .rule-top { border-top: 1px solid var(--hairline); }
 
+/* A short label in a row of them: the MCP tools, the ten rules, the six data
+   checks. Same vocabulary as the guide's `.pill`, one size down, and not a button
+   — nothing in a row of these is pressable, so none of them gets a hover state. */
+.chip {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  line-height: 1;
+  padding: 6px 9px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  color: var(--haze);
+  white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------------------
+   The screenshot frame.
+
+   The console is shown in its light theme in every shot on this page — that is
+   the theme its own documentation uses, and a set that switched halfway would
+   read as two products. Which means that on the dark default, a bare image is a
+   rectangle of white with nothing holding it. The frame is what makes it read as
+   a picture of a screen rather than as a hole in the page: a hairline, a radius,
+   and a shadow that lifts it off the dot field.
+
+   The inset ring is inside the border rather than replacing it, because the
+   console's own chrome starts with a near-white toolbar and a 1px --rule against
+   #171513 is not enough edge on its own.
+   --------------------------------------------------------------------------- */
+.shot {
+  position: relative;
+  overflow: hidden;
+  border-radius: 7px;
+  border: 1px solid var(--rule);
+  background: var(--ink-3);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.25),
+    0 22px 44px -26px rgb(0 0 0 / 0.7);
+  line-height: 0;
+  aspect-ratio: var(--shot-ratio, auto);
+}
+
+.shot > img { display: block; width: 100%; height: auto; }
+
+/* A capture that ran past its content is cropped at the top rather than trimmed on
+   disk. `--shot-ratio` must be WIDER than the image's own aspect or `object-fit:
+   cover` takes the crop out of the sides — see the note on `ratio` in
+   app/data/measurements.ts. */
+.shot[data-crop] > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+/* On a phone the column is about 340px, and a console screenshot scaled to 340px is
+   a grey smudge with a caption under it. So the frame becomes a viewport: the image
+   holds a legible width and the reader pans it, which is the same rule the guide
+   applies to a wide table — the content keeps its size and scrolls inside its own
+   container rather than shrinking its labels out of existence.
+
+   The crop goes with it. A cropped frame 150px tall that also scrolls sideways is
+   two gestures for one picture; at this width the whole shot is the smaller ask. */
+@media (max-width: 640px) {
+  .shot {
+    aspect-ratio: auto;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+  .shot > img,
+  .shot[data-crop] > img {
+    width: 720px;
+    max-width: none;
+    height: auto;
+    object-fit: fill;
+  }
+}
+
+/* On a light ground the shadow is doing a different job — the screenshot and the
+   page are nearly the same colour, so the edge has to carry the separation. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) .shot {
+    box-shadow:
+      0 0 0 1px rgb(74 66 60 / 0.06),
+      0 14px 30px -20px rgb(74 66 60 / 0.45);
+  }
+}
+
+:root[data-theme="light"] .shot {
+  box-shadow:
+    0 0 0 1px rgb(74 66 60 / 0.06),
+    0 14px 30px -20px rgb(74 66 60 / 0.45);
+}
+
 /* ---------------------------------------------------------------------------
    The guide.
 

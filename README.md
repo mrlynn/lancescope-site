@@ -22,9 +22,29 @@ npm install
 npm run dev
 ```
 
-## Two things that will drift
+## The screenshots
 
-This repository is deliberately separate from the app, which means two copies are
+`public/shots` holds nine images of the console, and they come from two places.
+
+Five are the app's own documentation images, copied from `docs/assets` in
+[mrlynn/lancescope](https://github.com/mrlynn/lancescope) and taken against the
+16-talk reference corpus. Four were captured from
+[demo.lancescope.mlynn.dev](https://demo.lancescope.mlynn.dev) on 6 September 2026
+— the same build the DMG carries, pinned to a public MNIST table it reads over
+`hf://` — so the numbers on them are a live read of somebody else's data.
+
+All nine show the console in its **light** theme, which is the theme its own
+documentation uses. A set that changed theme halfway would read as two products,
+and `.shot` in `app/globals.css` is what carries a light screenshot on a dark page.
+
+`app/data/measurements.ts` holds their alt text and captions beside every other
+figure on the site, under the same rule: a caption says what is on the screen and
+what that read cost. A screenshot with no number on it is the one element of this
+page arguing from a picture.
+
+## Three things that will drift
+
+This repository is deliberately separate from the app, which means these copies are
 kept in step by hand rather than by CI:
 
 - **`app/globals.css`** — the palette is copied from `web/app/globals.css` in the
@@ -33,6 +53,10 @@ kept in step by hand rather than by CI:
 - **`brand/mark.svg`** — the same mark that `scripts/gen_icons.py` renders the app
   icons from. Its comment carries the test any change has to pass: render it in
   one colour at 14px and check it is still not the LanceDB mark.
+- **`public/shots`** — a screenshot is a claim with a date on it. When a screen in
+  the console changes shape, the shot of it here is wrong and nothing will say so.
+  Re-take it from the same place it came from, and re-read the caption: the caption
+  quotes a byte count off the screen, so a new capture usually means a new number.
 
 ## The download button
 
