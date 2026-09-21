@@ -1,0 +1,32 @@
+export const notes = [
+  { id: "thesis", title: "The one-sentence thesis", paragraphs: [
+    "Analytics-era formats were built for one access pattern: big sequential scans over narrow columns. AI workloads need scans, random access, wide blobs and constantly growing columns, all on the same data. Lance is the format that serves all four without copying data into separate systems.",
+    "Practice saying it out loud until it takes under fifteen seconds. Chang will judge the rest of the conversation by whether you can say this cleanly." ] },
+  { id: "chang", title: "Know the room: Chang She", sourceIds: ["yc-lancedb", "tc-seed", "tracxn"], paragraphs: [
+    "Chang was one of the earliest core contributors to pandas, working with Wes McKinney starting in 2012. He co-founded DataPad, spent time at Cloudera, and was VP of engineering at Tubi, where he built the ML stack and the experimentation platform. Before that he was a quant at AQR and Barclays. His co-founder is Lei Xu, the CTO.",
+    "What that means for you: he thinks in data stack terms, not vector database terms. Lead with Parquet, Iceberg and the lakehouse. Treat vector search as one workload among several. He knows Parquet's history from the Cloudera years, so don't lecture him on it. Talk about its limits." ] },
+  { id: "lance-three", title: "What Lance actually is", sourceIds: ["dq-lance"], paragraphs: [
+    "Lance is three things at once: a file format, a table format and a lightweight catalog spec called Namespace.",
+    "The file format stores data in pages of about 8 MB per column, with no row groups, and uses Arrow's type system. It picks a structural encoding per column: layouts built for predictable random access on wide values like embeddings, and chunked, scan-friendly layouts on narrow values.",
+    "The table format describes each version with an immutable manifest. Fragments are horizontal slices of rows, stored as lists in the manifest rather than as files. Each fragment holds one or more data files with the same row count, so a new column is just a new data file per fragment. Deletion files mark removed rows without rewriting data. Vector, full-text and scalar indexes are immutable files referenced by the manifest.",
+    "Blob columns store large values like video out of line. Filters and vector search never touch the bytes, and readers can fetch a byte range. Blob v2 arrived with file format 2.2 and supports external URIs and slices." ] },
+  { id: "iceberg-question", title: "The Iceberg question", sourceIds: ["lancedb-iceberg", "atlan-v3", "register-lance"], paragraphs: [
+    "Iceberg is the default table format for analytics, backed by Snowflake, Databricks, AWS and Google. LanceDB's own blog calls Iceberg the foundation for analytics interoperability and positions Lance as the format for ML and AI.",
+    "One precise point wins credibility. Adding a nullable column to an Iceberg table is a metadata change, and Iceberg v3 default values extend that to constant defaults. The cost shows up when you backfill per-row values, like computing embeddings for every row. Parquet stores column chunks inside row groups located by the footer, so a backfill rewrites the files. Lance writes only the new column's data files. Say 'backfill', not 'add a column'.",
+    "Iceberg is absorbing good ideas. Lance already had deletion files, and v3 added deletion vectors. So pitch the differences Iceberg can't copy without changing Parquet itself: random access into wide columns, blobs stored out of line, and per-row backfills that write only the new column.",
+    "The honest weakness is ecosystem breadth. Every engine speaks Iceberg today. Lance needs more engines, more catalogs and more community to get there." ] },
+  { id: "blob-pushback", title: "Pushback to expect on blobs", paragraphs: [
+    "A sharp engineer will say Parquet's column projection also skips the video column during a vector search. That's true for scans.",
+    "The difference appears in two places. When you fetch payloads for the ten rows that matched, Lance seeks straight to those blobs and can read just a byte range, like one frame or a two-second clip. And at write time, huge values inside Parquet row groups force writers to buffer them and make random fetches pull whole pages. Lance stores blobs out of line, so they never get in the way of the narrow columns." ] },
+  { id: "oss-enterprise", title: "Lance, LanceDB OSS and Enterprise", sourceIds: ["dq-lance", "lancedb-mmlh-pdf"], paragraphs: [
+    "pylance is the format library. You write and read Arrow data, manage versions and control layout directly. Platform engineers wiring Lance into their own stack start here.",
+    "lancedb is the embedded OSS library on top. It adds named tables, a query builder and search. AI engineers building retrieval and training pipelines start here.",
+    "LanceDB Enterprise adds the production layer: distributed ingestion and indexing, automatic compaction and reindexing, a training cache on NVMe close to the GPUs (the whitepaper cites 5M IOPS), and Geneva for distributed feature engineering with versioned UDFs. It supports BYOC deployment. For technical marketing, the line between OSS and Enterprise decides what you give away and what you gate." ] },
+  { id: "lancescope", title: "Your edge: LanceScope", sourceIds: ["lancescope"], paragraphs: [
+    "You built an independent, read-only workbench for Lance datasets. It shows schema, versions, indices, fragments, rows and the byte cost of every read, ships an MCP server for agents, and runs nine metadata-based diagnostic rules. It is Apache-2.0 and not affiliated with LanceDB.",
+    "The headline: a table holding 2.65 GB of video can be vector searched while reading none of the video, roughly 132 to 1 stored versus read. That's the out-of-line blob design made visible.",
+    "Frame it for Chang like this: the architecture's advantage is invisible until someone shows the bytes, and you built a tool that shows the bytes." ] },
+  { id: "caveat", title: "The caveat that makes you credible", paragraphs: [
+    "Not every AI team needs all four. A text-only RAG app over a few million documents runs fine on Postgres with pgvector. The four-way pressure shows up at scale, with multimodal data, and when a team trains its own models.",
+    "That's the customer list LanceDB points to: Netflix, Uber, Exa, frontier labs, robotics. Saying this out loud tells Chang you understand who the product is for, not only what it does." ] },
+]
