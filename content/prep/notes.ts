@@ -23,7 +23,7 @@ export const notes = [
     "lancedb is the embedded OSS library on top. It adds named tables, a query builder and search. AI engineers building retrieval and training pipelines start here.",
     "LanceDB Enterprise adds the production layer: distributed ingestion and indexing, automatic compaction and reindexing, a training cache on NVMe close to the GPUs (the whitepaper cites 5M IOPS), and Geneva for distributed feature engineering with versioned UDFs. It supports BYOC deployment. For technical marketing, the line between OSS and Enterprise decides what you give away and what you gate." ] },
   { id: "lancescope", title: "Your edge: LanceScope", sourceIds: ["lancescope"], paragraphs: [
-    "You built an independent, read-only workbench for Lance datasets. It shows schema, versions, indices, fragments, rows and the byte cost of every read, ships an MCP server for agents, and runs nine metadata-based diagnostic rules. It is Apache-2.0 and not affiliated with LanceDB.",
+    "You built an independent, read-only workbench for Lance datasets. It shows schema, versions, indices, fragments, rows and the byte cost of every read, ships an MCP server for agents, and runs ten metadata-based diagnostic rules. It is Apache-2.0 and not affiliated with LanceDB.",
     "The headline: a table holding 2.65 GB of video can be vector searched while reading none of the video, roughly 132 to 1 stored versus read. That's the out-of-line blob design made visible.",
     "Frame it for Chang like this: the architecture's advantage is invisible until someone shows the bytes, and you built a tool that shows the bytes." ] },
   { id: "caveat", title: "The caveat that makes you credible", paragraphs: [
