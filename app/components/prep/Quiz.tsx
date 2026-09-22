@@ -1,14 +1,30 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import { TOPICS } from "@/app/lib/prep";
 import TopicFilter, { topicsOf } from "@/app/components/prep/TopicFilter";
 import { shuffled } from "@/app/components/prep/progress";
 
-type Question = { id: string; topic: string; q: string; options: readonly string[]; answer: number; why: string };
+/** The order options are shown in, as original indexes. Seeded by the question id
+ *  so it's the same on the server and the client and between visits. Without it
+ *  most answers sit in position B, because that's how the content was written. */
+function displayOrder(id: string, count: number): number[] {
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i++) h = Math.imul(h ^ id.charCodeAt(i), 16777619);
+  const order = Array.from({ length: count }, (_, i) => i);
+  for (let i = count - 1; i > 0; i--) {
+    h = Math.imul(h ^ (h >>> 15), 2246822507) >>> 0;
+    const j = h % (i + 1);
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  return order;
+}
 
-/** One question at a time. Options stay in the order written, because `answer`
- *  indexes into them. */
+type Question = { id: string; topic: string; q: string; options: readonly string[]; answer: number; why: string; competitorId?: string };
+
+/** One question at a time. Options are shown shuffled, but `picked` and `answer`
+ *  are always indexes into the options as written. */
 export default function Quiz({ questions }: { questions: readonly Question[] }) {
   const { topics, counts } = useMemo(() => topicsOf(questions), [questions]);
   const byId = useMemo(() => new Map(questions.map((q) => [q.id, q])), [questions]);
@@ -58,7 +74,8 @@ export default function Quiz({ questions }: { questions: readonly Question[] }) 
           </div>
           <p className="text-[19px] md:text-[21px] font-bold leading-snug text-[var(--bright)] mb-6">{q.q}</p>
           <ol className="space-y-2">
-            {q.options.map((o, n) => {
+            {displayOrder(q.id, q.options.length).map((n, pos) => {
+              const o = q.options[n];
               const isAnswer = picked !== null && n === q.answer;
               const isWrongPick = picked === n && n !== q.answer;
               return (
@@ -71,7 +88,7 @@ export default function Quiz({ questions }: { questions: readonly Question[] }) 
                             background: isAnswer ? "rgb(var(--index-rgb) / 0.1)" : isWrongPick ? "rgb(var(--video-rgb) / 0.1)" : undefined,
                             color: picked !== null && !isAnswer && !isWrongPick ? "var(--haze)" : "var(--bright)",
                           }}>
-                    <span className="mono text-[11px] text-[var(--dim)] mr-3">{"ABCD"[n] ?? n + 1}</span>
+                    <span className="mono text-[11px] text-[var(--dim)] mr-3">{"ABCD"[pos] ?? pos + 1}</span>
                     {o}
                   </button>
                 </li>
@@ -85,6 +102,12 @@ export default function Quiz({ questions }: { questions: readonly Question[] }) 
                 {picked === q.answer ? "Right." : "Not quite."}
               </p>
               <p className="text-[14px] leading-relaxed text-[var(--body)] max-w-[68ch]">{q.why}</p>
+              {q.competitorId && (
+                <Link href={`/prep/competitors/${q.competitorId}`}
+                      className="block w-fit mono text-[11px] mt-2 hover:underline" style={{ color: "var(--video)" }}>
+                  Read the full profile →
+                </Link>
+              )}
               <button type="button" className="pill mt-5"
                       style={{ color: "var(--bright)", borderColor: "var(--haze)" }}
                       onClick={() => { setI(i + 1); setPicked(null); }}>

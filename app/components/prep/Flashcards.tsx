@@ -1,11 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { TOPICS } from "@/app/lib/prep";
 import TopicFilter, { topicsOf } from "@/app/components/prep/TopicFilter";
 import { shuffled, updateProgress, useProgress } from "@/app/components/prep/progress";
 
-type Card = { id: string; topic: string; q: string; a: string };
+type Card = { id: string; topic: string; q: string; a: string; competitorId?: string };
 
 /** Flip, then say whether you had it. Keyboard: space flips, arrows move,
  *  1 is "again", 2 is "got it". */
@@ -47,9 +48,10 @@ export default function Flashcards({ cards }: { cards: readonly Card[] }) {
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT")) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      // A focused button already answers space and enter with its own click.
+      // A focused button or link already answers space and enter itself: a click,
+      // or following the profile link. Flipping here would swallow that.
       if (e.key === " " || e.key === "Enter") {
-        if (t?.tagName === "BUTTON") return;
+        if (t?.closest("button, a[href]")) return;
         e.preventDefault();
         setFlipped((f) => !f);
       }
@@ -107,6 +109,13 @@ export default function Flashcards({ cards }: { cards: readonly Card[] }) {
               {flipped ? card.q : "Tap or press space to flip"}
             </div>
           </button>
+
+          {flipped && card.competitorId && (
+            <Link href={`/prep/competitors/${card.competitorId}`}
+                  className="inline-block mono text-[11px] mt-3 hover:underline" style={{ color: "var(--video)" }}>
+              Read the full profile →
+            </Link>
+          )}
 
           <div className="flex flex-wrap gap-2 mt-4">
             <button type="button" className="pill" onClick={() => go(-1)}>← Prev</button>

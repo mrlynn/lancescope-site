@@ -43,3 +43,12 @@ export type CompetitorDetail = {
   uncertain?: string[];
   sourceIds: string[];
 };
+
+/** A flashcard. `competitorId` links the card to that competitor's profile. */
+export type StudyCard = { id: string; topic: string; q: string; a: string; competitorId?: string };
+
+/** A quiz question. `answer` indexes into `options`, so options keep their order. */
+export type QuizItem = {
+  id: string; topic: string; q: string; options: readonly string[]; answer: number; why: string;
+  competitorId?: string;
+};
