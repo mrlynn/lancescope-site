@@ -62,3 +62,7 @@ export type NoteItem = { id: string; title: string; paragraphs: readonly string[
 /** A question to ask. `why` says what asking it signals; `competitorIds` link the
  *  profiles behind it. */
 export type AskItem = { id: string; q: string; why?: string; competitorIds?: readonly string[] };
+
+/** A market map point added after the original map. Same axes: x runs from scans
+ *  to random access, y from structured to multimodal. Placement is my read. */
+export type MarketPoint = { id: string; label: string; x: number; y: number; note: string; competitorIds: readonly string[] };
