@@ -24,8 +24,8 @@ export default function SourceLinks({ ids, className = "" }: {
 }
 
 /** A small uppercase tag for how much weight a number can bear. */
-export function Label({ kind }: { kind: "measured" | "illustrative" | "vendor claim" | "my read" }) {
-  const color = kind === "measured" ? "var(--index)" : kind === "vendor claim" ? "var(--video)" : "var(--haze)";
+export function Label({ kind }: { kind: "measured" | "illustrative" | "vendor claim" | "my read" | "third-party" }) {
+  const color = kind === "measured" || kind === "third-party" ? "var(--index)" : kind === "vendor claim" ? "var(--video)" : "var(--haze)";
   return (
     <span className="mono text-[9px] uppercase tracking-[0.16em] px-1.5 py-0.5 rounded-[2px] border align-middle whitespace-nowrap"
           style={{ color, borderColor: color }}>

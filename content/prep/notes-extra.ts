@@ -19,8 +19,8 @@ export const notesExtra: NoteItem[] = [
     competitorIds: ["hudi", "paimon", "iceberg", "delta"],
     sourceIds: ["hudi-1-2", "paimon-formats", "paimon-blob", "merced-v4-jul26", "databricks-file-type"],
     paragraphs: [
-      "The analytics formats spent 2026 adding what Lance already has. Hudi 1.2 (June 2026) added VECTOR and BLOB types and Lance as a base file format. Paimon added blob files, a vector index and column evolution without rewrites, and its docs recommend Lance files for ML. Iceberg v4 is debating cheap column updates, and a dense vector type is on its dev list.",
-      "Two of them adopted Lance's file format to get there. Quote that: when the formats built for analytics went looking for a way to store AI data, they picked Lance.",
+      "The analytics formats are adding what Lance already has. Hudi 1.2 (June 2026) added VECTOR and BLOB types and Lance as a base file format. Paimon added blob files, a vector index and column evolution without rewrites, and its docs list Lance as a file format 'optimized for machine learning and vector search workloads'. Iceberg v4 is debating cheap column updates, and a dense vector type is on its dev list.",
+      "Both of them support Lance's file format as part of getting there. Quote that: when formats built for analytics went looking for a way to store AI data, they added Lance.",
       "Frame it honestly. The convergence is real, and Lance's lead is in how native these features are. Hudi's vector search is brute force and Spark-only. Paimon's blobs and column evolution are opt-in modes. Iceberg has no consensus on column updates. Databricks' new FILE type stores pointers, not bytes. In Lance, random access, blobs, column evolution and versioned indexes are how the format works.",
     ] },
   { id: "n-direct-rivals", title: "The direct multimodal rivals: several small companies, one serious",

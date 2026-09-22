@@ -66,3 +66,7 @@ export type AskItem = { id: string; q: string; why?: string; competitorIds?: rea
 /** A market map point added after the original map. Same axes: x runs from scans
  *  to random access, y from structured to multimodal. Placement is my read. */
 export type MarketPoint = { id: string; label: string; x: number; y: number; note: string; competitorIds: readonly string[] };
+
+/** A proof point added after the original list. `competitorIds` link the
+ *  profiles it bears on. */
+export type ProofItem = { id: string; label: string; text: string; sourceIds: readonly string[]; competitorIds?: readonly string[] };

@@ -8,7 +8,7 @@ export const askExtra: AskItem[] = [
     q: "Milvus 3.0 now indexes Lance tables in place, and Zilliz is pitching a 'Vector Lakebase'. Do you read that as validation of the format or as a competitor moving onto your ground, and does it change how you talk about Lance versus LanceDB?",
     why: "Shows you tracked the biggest competitive move of 2026. The format-versus-engine distinction is also the core of your own answer, so his framing tells you how he'd want you to tell it." },
   { id: "ask-convergence", competitorIds: ["hudi", "paimon"],
-    q: "Hudi and Paimon both adopted Lance as a file format this year. How do you think about Lance living as a file inside other table formats, versus Lance as the whole table?",
+    q: "Hudi added Lance as a file format this year, and Paimon supports it too. How do you think about Lance living as a file inside other table formats, versus Lance as the whole table?",
     why: "There's a real tension between adoption and dilution here, with no scripted answer. It shows you understand the layers, and his answer tells you what the company wants to own." },
   { id: "ask-spiral", competitorIds: ["spiral", "daft"],
     q: "Spiral is building a platform on Vortex for robotics teams, and Eventual has turned Daft's company toward robot fleet data. Physical AI seems to be where the data layer race is heating up. How do you see it playing out?",
