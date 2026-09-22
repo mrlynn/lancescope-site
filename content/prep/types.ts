@@ -55,3 +55,6 @@ export type QuizItem = {
 
 /** A question to answer out loud, with the points a good answer hits. */
 export type RehearseItem = { id: string; topic: string; q: string; points: readonly string[]; competitorId?: string };
+
+/** A briefing note. `competitorIds` link the note to the profiles it covers. */
+export type NoteItem = { id: string; title: string; paragraphs: readonly string[]; sourceIds?: readonly string[]; competitorIds?: readonly string[] };

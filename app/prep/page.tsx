@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Head, { H2, Say } from "@/app/components/prep/Head";
 import { notes } from "@/content/prep/notes";
+import { notesExtra } from "@/content/prep/notes-extra";
 import { why } from "@/content/prep/why";
 import { allCards as cards, allCompetitors, allQuiz as quiz, allRehearse as rehearse, allSources } from "@/app/lib/prep";
 import { ask } from "@/content/prep/ask";
@@ -10,7 +11,7 @@ const STEPS = [
   { href: "/prep/stack", title: "Stack explorer", text: "Five layers, analytics stack against Lance stack, and the Iceberg metadata tree next to Lance's." },
   { href: "/prep/market", title: "Market map and proof", text: "Where everyone sits, and the customer and benchmark evidence to quote." },
   { href: "/prep/competitors", title: "Competitors", text: `${allCompetitors.length} rivals and neighbours, threat-rated, each with a full profile.` },
-  { href: "/prep/notes", title: "Briefing notes", text: `${notes.length} notes: the thesis, the room, the Iceberg question and your edge.` },
+  { href: "/prep/notes", title: "Briefing notes", text: `${notes.length + notesExtra.length} notes: the thesis, the room, the Iceberg question, your edge, and how the rivals moved in 2026.` },
   { href: "/prep/cards", title: "Flashcards", text: `${cards.length} cards across every topic. Progress is kept in this browser.` },
   { href: "/prep/quiz", title: "Quiz", text: `${quiz.length} multiple-choice questions with the reasoning behind each answer.` },
   { href: "/prep/rehearse", title: "Rehearse", text: `${rehearse.length} questions to answer out loud against a clock, then check your points.` },

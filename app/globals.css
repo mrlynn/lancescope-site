@@ -154,6 +154,14 @@ body::before {
   white-space: nowrap;
 }
 
+/* For chips whose label is a sentence, such as a note title or a citation. On a
+   phone one of those is wider than the column, and a chip that won't wrap widens
+   the whole page. */
+.chip.chip-wrap {
+  white-space: normal;
+  line-height: 1.35;
+}
+
 /* ---------------------------------------------------------------------------
    The screenshot frame.
 
