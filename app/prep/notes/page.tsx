@@ -41,7 +41,7 @@ export default function Notes() {
       <Head eyebrow="Briefing notes" title="What to know walking in" />
       <nav aria-label="Notes" className="flex flex-wrap gap-2 mb-4">
         {[...notes, ...notesExtra].map((n) => (
-          <a key={n.id} href={`#${n.id}`} className="chip hover:text-[var(--bright)]">{n.title}</a>
+          <a key={n.id} href={`#${n.id}`} className="chip chip-wrap hover:text-[var(--bright)]">{n.title}</a>
         ))}
       </nav>
       {notes.map((n) => <Note key={n.id} n={n} />)}

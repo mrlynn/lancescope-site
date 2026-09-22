@@ -39,7 +39,7 @@ export default function Sources() {
             </div>
             {cites.get(s.id) && (
               <div className="flex flex-wrap gap-1.5 mt-3">
-                {cites.get(s.id)!.map((c) => <span key={c} className="chip">{c}</span>)}
+                {cites.get(s.id)!.map((c) => <span key={c} className="chip chip-wrap">{c}</span>)}
               </div>
             )}
           </li>
