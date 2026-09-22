@@ -7,8 +7,8 @@ export const competitorsExtra: CompetitorEntry[] = [
     sourceIds: ["paimon-formats", "paimon-blob", "doris-paimon-2"],
     origin: "Grew out of the Apache Flink community and became an Apache project.",
     whatItIs: "An LSM-based streaming lakehouse table format with primary-key and append tables, now adding blobs, vector types and a global vector index.",
-    whyItMatters: "It is the table format converging fastest on Lance's feature list: column evolution without rewrites, a dedicated blob file type, a vector index, and Lance as a supported data file format. Its own docs recommend Lance files for ML workloads. Apache Doris 4.2, due at the end of September 2026, queries Paimon, Iceberg and Lance as a multimodal lakehouse.",
-    lanceAngle: "Paimon recommending Lance files for ML is an endorsement worth quoting. The difference: in Lance, blobs, column evolution and indexes are native and on by default. In Paimon they are newer opt-in modes on a Flink-first streaming format." },
+    whyItMatters: "It is the table format converging fastest on Lance's feature list: column evolution without rewrites, a dedicated blob file type, a vector index, and Lance as a supported data file format. Its own docs describe Lance as 'optimized for machine learning and vector search workloads'. Apache Doris 4.2, due at the end of September 2026, queries Paimon, Iceberg and Lance as a multimodal lakehouse.",
+    lanceAngle: "Paimon's own docs calling Lance optimized for ML and vector search is an endorsement worth quoting. The difference: in Lance, blobs, column evolution and indexes are native and on by default. In Paimon they are newer opt-in modes on a Flink-first streaming format." },
 
   { id: "pinecone", name: "Pinecone", group: "vector", threat: 2,
     sourceIds: ["pinecone-ceo", "pinecone-one-year", "calcalist-pinecone", "pinecone-nexus"],

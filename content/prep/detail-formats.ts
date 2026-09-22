@@ -178,8 +178,8 @@ export const formatDetails: CompetitorDetail[] = [
   {
     id: "catalogs", asOf: "2026-09",
     company: "Apache Polaris came from Snowflake and Dremio and became a top-level project in February 2026. Unity Catalog is Databricks', with an open-source version in LF AI & Data. Apache Gravitino is backed commercially by Datastrato.",
-    howItWorks: "Polaris implements the Iceberg REST catalog, with a Generic Table API for other formats. Unity Catalog governs tables, volumes, functions and models, with an Iceberg REST endpoint and new Delta APIs. Gravitino federates metadata across many sources, and since 1.1 it can act as a Lance Namespace server directly.",
-    status: "All three can see Lance tables today, to different depths. Polaris registers Lance tables as generic tables with format 'lance' through the Lance Namespace; a January 2026 Polaris post names Spark, Ray, LanceDB, Trino, Flink and DuckDB. Credential vending, OAuth refresh and the commit path are still to come. Unity Catalog maps Lance tables as external tables; it doesn't know Lance natively. Gravitino has a built-in Lance REST service that can list, create, register and drop, but can't alter tables or manage indexes.",
+    howItWorks: "Polaris implements the Iceberg REST catalog, with a Generic Table API for other formats. Unity Catalog governs tables, volumes, functions and models, with an Iceberg REST endpoint and new Delta APIs. Gravitino federates metadata across many sources, and since 1.1 it has shipped a Lance REST service that implements the Lance REST spec.",
+    status: "All three can see Lance tables today, to different depths. Polaris registers Lance tables as generic tables with format 'lance' through the Lance Namespace; a January 2026 Polaris post names Spark, Ray, LanceDB, Trino, Flink and DuckDB. Credential vending, OAuth refresh and the commit path are still to come. Unity Catalog maps Lance tables as external tables; it doesn't know Lance natively. Gravitino's generic lakehouse catalog can list, load, create, register, drop and purge Lance tables, but can't yet alter them or manage partitioning or indexes; its separate Lance REST service implements the Lance REST spec.",
     strengths: [
       "They are where platform teams already govern tables, so appearing in them is how Lance gets adopted.",
       "Polaris is vendor-neutral, Unity has the Databricks install base, and Gravitino has the deepest Lance support.",
@@ -193,7 +193,7 @@ export const formatDetails: CompetitorDetail[] = [
     partnerOrRival: "Partners. The risk is only that a catalog's owner makes other formats feel first-class and Lance feel bolted on.",
     objection: {
       q: "Which catalogs support Lance natively?",
-      a: "Gravitino ships a Lance REST namespace service. Polaris supports Lance through generic tables and the Namespace spec. Unity Catalog works through an external-table mapping. The known gaps, credential vending and the commit path, are on the Polaris roadmap.",
+      a: "Gravitino ships a Lance REST service that implements the Lance REST spec. Polaris supports Lance through generic tables and the Namespace spec. Unity Catalog works through an external-table mapping. The known gaps, credential vending and the commit path, are on the Polaris roadmap.",
     },
     sourceIds: ["polaris-lance", "polaris-tlp", "uc-lance-spec", "gravitino-lance", "databricks-uc-dais26"],
   },
@@ -224,7 +224,7 @@ export const formatDetails: CompetitorDetail[] = [
   {
     id: "paimon", asOf: "2026-09",
     company: "An Apache project from the Flink community. Alibaba is prominent in it, and Kuaishou (Kwai) runs it in production.",
-    howItWorks: "An LSM-based streaming table format with primary-key and append tables. 'Data evolution' with row tracking lets it update or add columns without rewriting existing files. BLOB values go into dedicated .blob files, which requires turning on row tracking and data evolution. A global index adds BTree and vector indexes, with IVF, PQ and DiskANN in a Rust library. Data files can be Parquet (the default), ORC, Avro, Lance, Vortex and more, and the docs recommend Lance for ML.",
+    howItWorks: "An LSM-based streaming table format with primary-key and append tables. 'Data evolution' with row tracking lets it update or add columns without rewriting existing files. BLOB values go into dedicated .blob files, which requires turning on row tracking and data evolution. A global index adds BTree and vector indexes, with IVF, PQ and DiskANN in a Rust library. Data files can be Parquet (the default), ORC, Avro, Lance, Vortex and more, and the docs describe Lance as 'optimized for machine learning and vector search workloads'.",
     status: "1.4 is the stable docs version, and 2.0 is in planning. Apache Doris describes Paimon 2.0 capabilities (BLOB, VECTOR, VARIANT, data evolution, global row IDs and global index) in a September 2026 post. Doris 4.2, due at the end of September 2026, adds multimodal lakehouse queries over Paimon, Iceberg and Lance.",
     strengths: [
       "The table format closest to Lance's AI story: column evolution, blob files, a vector index, and Lance as a file format.",
@@ -242,7 +242,7 @@ export const formatDetails: CompetitorDetail[] = [
     fourNeeds: { scans: "strong", random: "partial", blobs: "partial", columns: "strong" },
     objection: {
       q: "Paimon has blobs, vector indexes and column evolution now. Isn't it Lance plus streaming?",
-      a: "It's converging on Lance's feature list, and it recommends Lance files for ML. The difference is that these are native defaults in Lance with a wider AI engine ecosystem, and newer opt-in modes in a Flink-first format.",
+      a: "It's converging on Lance's feature list, and its docs describe Lance as optimized for ML and vector search. The difference is that these are native defaults in Lance with a wider AI engine ecosystem, and newer opt-in modes in a Flink-first format.",
     },
     vendorClaims: [
       "Kuaishou's test on 16M and 128M 2,048-dimension vectors: 96.0% to 99.6% recall, at 1.07 to 4.18 times the latency of Doris internal tables (Doris project blog).",

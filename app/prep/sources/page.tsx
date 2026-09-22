@@ -3,6 +3,7 @@ import Head from "@/app/components/prep/Head";
 import { notes } from "@/content/prep/notes";
 import { notesExtra } from "@/content/prep/notes-extra";
 import { proof } from "@/content/prep/proof";
+import { proofExtra } from "@/content/prep/proof-extra";
 import { competitorDetail } from "@/content/prep/competitors-detail";
 import { allCompetitors, allSources } from "@/app/lib/prep";
 
@@ -17,6 +18,7 @@ function citedBy(): Map<string, string[]> {
   notes.forEach((n) => add("sourceIds" in n ? n.sourceIds : undefined, `Briefing: ${n.title}`));
   notesExtra.forEach((n) => add(n.sourceIds, `Briefing: ${n.title}`));
   proof.forEach((p) => add(p.sourceIds, `Proof: ${p.label}`));
+  proofExtra.forEach((p) => add(p.sourceIds, `Ecosystem proof: ${p.label}`));
   allCompetitors.forEach((c) => add([...new Set([...c.sourceIds, ...(competitorDetail[c.id]?.sourceIds ?? [])])], `Competitor: ${c.name}`));
   return m;
 }

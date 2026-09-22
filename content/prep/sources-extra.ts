@@ -34,6 +34,7 @@ export const sourcesExtra: SourceEntry[] = [
   { id: "polaris-tlp", title: "Apache Polaris Graduates to Top Level Project", publisher: "Apache Polaris", url: "https://polaris.apache.org/blog/2026/02/19/apache-polaris-graduates-to-top-level-project/", date: "2026-02-19" },
   { id: "uc-lance-spec", title: "Unity Catalog Lance Namespace Implementation Spec", publisher: "lance.org", url: "https://lance.org/format/namespace/integrations/unity/" },
   { id: "gravitino-lance", title: "Lance table support (Gravitino 1.2.1 docs)", publisher: "Apache Gravitino", url: "https://gravitino.apache.org/docs/1.2.1/lance-table-support/", date: "2026" },
+  { id: "gravitino-lance-rest", title: "Lance REST service", publisher: "Apache Gravitino", url: "https://gravitino.apache.org/docs/1.2.1/lance-rest-service" },
   { id: "ducklake-1-0", title: "DuckLake v1.0: The Lakehouse Format Built on SQL Reaches Production-Readiness", publisher: "DuckLake", url: "https://ducklake.select/2026/04/13/ducklake-10/", date: "2026-04-13" },
   // Paimon
   { id: "paimon-formats", title: "FileFormat spec", publisher: "Apache Paimon docs", url: "https://paimon.apache.org/docs/master/concepts/spec/fileformat/" },
