@@ -1,11 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { TOPICS } from "@/app/lib/prep";
 import TopicFilter, { topicsOf } from "@/app/components/prep/TopicFilter";
 import { shuffled, updateProgress, useProgress } from "@/app/components/prep/progress";
 
-type Card = { id: string; topic: string; q: string; a: string };
+type Card = { id: string; topic: string; q: string; a: string; competitorId?: string };
 
 /** Flip, then say whether you had it. Keyboard: space flips, arrows move,
  *  1 is "again", 2 is "got it". */
@@ -107,6 +108,13 @@ export default function Flashcards({ cards }: { cards: readonly Card[] }) {
               {flipped ? card.q : "Tap or press space to flip"}
             </div>
           </button>
+
+          {flipped && card.competitorId && (
+            <Link href={`/prep/competitors/${card.competitorId}`}
+                  className="inline-block mono text-[11px] mt-3 hover:underline" style={{ color: "var(--video)" }}>
+              Read the full profile →
+            </Link>
+          )}
 
           <div className="flex flex-wrap gap-2 mt-4">
             <button type="button" className="pill" onClick={() => go(-1)}>← Prev</button>
