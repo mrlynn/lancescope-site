@@ -1,18 +1,35 @@
 import type { Metadata } from "next";
 import Head, { H2 } from "@/app/components/prep/Head";
-import MarketMap from "@/app/components/prep/MarketMap";
+import MarketMap, { type Point } from "@/app/components/prep/MarketMap";
 import SourceLinks, { Label } from "@/app/components/prep/SourceLinks";
+import { competitorById } from "@/app/lib/prep";
 import { market } from "@/content/prep/market";
+import { marketExtra, originalPointProfiles } from "@/content/prep/market-extra";
 import { proof } from "@/content/prep/proof";
 
 export const metadata: Metadata = { title: "Market · Prep" };
+
+function profiles(ids: readonly string[] | undefined) {
+  return (ids ?? []).flatMap((id) => {
+    const c = competitorById(id);
+    return c ? [{ id: c.id, name: c.name }] : [];
+  });
+}
+
+/** The original points as written, then the September 2026 additions. LanceDB
+ *  goes last so its dot draws on top of anything placed near it. */
+const points: Point[] = [
+  ...market.filter((m) => !("self" in m && m.self)).map((m) => ({ ...m, profiles: profiles(originalPointProfiles[m.id]) })),
+  ...marketExtra.map((m) => ({ ...m, added: true, profiles: profiles(m.competitorIds) })),
+  ...market.filter((m) => "self" in m && m.self),
+];
 
 export default function Market() {
   return (
     <>
       <Head eyebrow="Market map" title="Where everyone sits"
             lead="Pick a point to read why it sits there and how LanceDB talks about it." />
-      <MarketMap points={market} />
+      <MarketMap points={points} />
 
       <H2 id="proof">Proof points</H2>
       <p className="text-[13px] text-[var(--haze)] mb-5 max-w-[64ch]">
