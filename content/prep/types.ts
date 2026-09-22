@@ -73,3 +73,6 @@ export type ProofItem = { id: string; label: string; text: string; sourceIds: re
 
 /** A note on who else occupies one layer of the stack explorer. */
 export type StackNote = { competitorIds: readonly string[]; text: string };
+
+/** A headline takeaway on the overview, linking to where it's covered. */
+export type Takeaway = { id: string; title: string; text: string; href: string };

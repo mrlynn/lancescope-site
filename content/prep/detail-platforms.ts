@@ -270,7 +270,7 @@ export const platformDetails: CompetitorDetail[] = [
     whereLanceWins: "Persistence, random access and search. Geneva runs on Ray.",
     partnerOrRival: "A partner. Watch whether Nscale bundles Anyscale with its own GPU cloud.",
     objection: {
-      q: "Anyscale is now owned by a GPU cloud. Is depending on Ray a risk for LanceDB?",
+      q: "A GPU cloud is buying Anyscale. Is depending on Ray a risk for LanceDB?",
       a: "Ray is governed by the PyTorch Foundation, and Nscale says it will support it there. Geneva depends on open-source Ray, not on Anyscale's product.",
     },
     sourceIds: ["nscale-anyscale", "bloomberg-anyscale", "ray-read-lance", "lance-ray-gh"],
@@ -293,7 +293,7 @@ export const platformDetails: CompetitorDetail[] = [
     whereLanceWins: "Querying, training reads and feature evolution. Lance is what makes Hub datasets searchable in place.",
     partnerOrRival: "A partner. The Hub officially documents Lance, and Lance datasets carry their indexes onto it.",
     objection: {
-      q: "Doesn't Nvidia owning Hugging Face threaten Lance's distribution?",
+      q: "Doesn't Nvidia buying Hugging Face threaten Lance's distribution?",
       a: "Nvidia has said publicly that the Hub stays open, and Lance support is in HF's own docs. The Hub distributes; Lance makes the data queryable. A bigger, Nvidia-backed Hub is more reach for Lance datasets, not less.",
     },
     uncertain: ["When the Nvidia deal closes."],

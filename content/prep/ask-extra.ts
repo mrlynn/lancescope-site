@@ -17,7 +17,7 @@ export const askExtra: AskItem[] = [
     q: "Nvidia is buying Hugging Face and Nscale is buying Anyscale. As GPU owners buy the layers around data and compute, does that change how you think about partnerships, or about building Geneva on Ray?",
     why: "Both deals are weeks old, so this shows you're current. It also touches a real dependency without sounding alarmed, since Ray stays with the PyTorch Foundation." },
   { id: "ask-pointers", competitorIds: ["databricks-snowflake", "hyperscaler-lakehouses"],
-    q: "Databricks, Snowflake and Google all shipped column types this year that point at files in object storage. In a deal against them, does 'pointers aren't bytes' land with buyers, or do you have to show it?",
+    q: "Databricks, Snowflake and Google all have column types that point at files in object storage. In a deal against them, does 'pointers aren't bytes' land with buyers, or do you have to show it?",
     why: "Invites a story from real deals. It sets up your LanceScope point naturally: the advantage is invisible until someone shows the bytes." },
   { id: "ask-agent-memory", competitorIds: ["pinecone", "weaviate", "chroma"],
     q: "Pinecone, Weaviate and Chroma are all moving into agent memory. Is that a workload you want LanceDB to win, or a distraction from the multimodal lakehouse story?",

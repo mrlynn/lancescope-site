@@ -36,7 +36,7 @@ export const notesExtra: NoteItem[] = [
     competitorIds: ["huggingface", "ray", "daft"],
     sourceIds: ["nvidia-hf", "hf-lance-docs", "nscale-anyscale", "bloomberg-anyscale", "daft-lance"],
     paragraphs: [
-      "Three of Lance's most important neighbours are partners, and two of them changed owners this year.",
+      "Three of Lance's most important neighbours are partners, and two of them agreed to be acquired this year. Neither deal had closed as of September 2026.",
       "Nvidia agreed on September 3, 2026 to buy Hugging Face for $12.93B and said the Hub will stay open. The Hub documents Lance as a supported format, so a Lance dataset ships as one artifact with its blobs, embeddings and indexes. Nscale, a GPU cloud, agreed in July to buy Anyscale; Bloomberg reported $1.65B. Ray itself stays with the PyTorch Foundation, and Geneva depends on open-source Ray, not on Anyscale's product.",
       "Daft reads and writes Lance natively and is often the engine writing to it. The one thing to watch is Eventual's new robotics curation product, which could overlap in physical AI.",
       "The read for Chang: GPU owners are buying the layers around data and compute. An open format is the safe bet when everything around it changes hands. How he sees that shift is also a good question to ask him.",
