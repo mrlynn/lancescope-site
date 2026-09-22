@@ -48,9 +48,10 @@ export default function Flashcards({ cards }: { cards: readonly Card[] }) {
       const t = e.target as HTMLElement | null;
       if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT")) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      // A focused button already answers space and enter with its own click.
+      // A focused button or link already answers space and enter itself: a click,
+      // or following the profile link. Flipping here would swallow that.
       if (e.key === " " || e.key === "Enter") {
-        if (t?.tagName === "BUTTON") return;
+        if (t?.closest("button, a[href]")) return;
         e.preventDefault();
         setFlipped((f) => !f);
       }
