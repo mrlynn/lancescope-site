@@ -58,3 +58,7 @@ export type RehearseItem = { id: string; topic: string; q: string; points: reado
 
 /** A briefing note. `competitorIds` link the note to the profiles it covers. */
 export type NoteItem = { id: string; title: string; paragraphs: readonly string[]; sourceIds?: readonly string[]; competitorIds?: readonly string[] };
+
+/** A question to ask. `why` says what asking it signals; `competitorIds` link the
+ *  profiles behind it. */
+export type AskItem = { id: string; q: string; why?: string; competitorIds?: readonly string[] };
