@@ -5,6 +5,7 @@ import { notesExtra } from "@/content/prep/notes-extra";
 import { why } from "@/content/prep/why";
 import { allCards as cards, allCompetitors, allQuiz as quiz, allRehearse as rehearse, allSources } from "@/app/lib/prep";
 import { ask } from "@/content/prep/ask";
+import { askExtra } from "@/content/prep/ask-extra";
 
 const STEPS = [
   { href: "/prep/why", title: "Why AI needs all four", text: "Scans, random access, wide blobs and growing columns, traced through one table's year, with a backfill calculator." },
@@ -15,7 +16,7 @@ const STEPS = [
   { href: "/prep/cards", title: "Flashcards", text: `${cards.length} cards across every topic. Progress is kept in this browser.` },
   { href: "/prep/quiz", title: "Quiz", text: `${quiz.length} multiple-choice questions with the reasoning behind each answer.` },
   { href: "/prep/rehearse", title: "Rehearse", text: `${rehearse.length} questions to answer out loud against a clock, then check your points.` },
-  { href: "/prep/ask", title: "Questions to ask Chang", text: `${ask.length} questions that show the homework.` },
+  { href: "/prep/ask", title: "Questions to ask Chang", text: `${ask.length + askExtra.length} questions that show the homework, including ${askExtra.length} on the new competitors.` },
   { href: "/prep/sources", title: "Sources", text: `${allSources.length} sources, each with what cites it.` },
 ];
 
