@@ -1,4 +1,4 @@
-import type { QuizItem, StudyCard } from "./types";
+import type { QuizItem, RehearseItem, StudyCard } from "./types";
 
 /** Study items for the competitor deep-dive, same shapes as cards.ts, quiz.ts and
  *  rehearse.ts, plus a competitorId linking each to its profile. Every fact comes
@@ -68,8 +68,8 @@ export const quizExtra: QuizItem[] = [
   { id: "qx-lakebase", competitorId: "milvus", topic: "vector", q: "Zilliz pitches Vector Lakebase for:", options: ["BI dashboards only", "Serving, discovery and multi-petabyte training-data pipelines", "Streaming ingestion only", "Postgres replacement"], answer: 1, why: "That's LanceDB's positioning. Milvus reads Lance read-only; LanceDB is the format's native engine." },
 ]
 
-export const rehearseExtra = [
-  { id: "rx-milvus", topic: "vector", q: "Milvus now reads Lance and Zilliz sells a 'Vector Lakebase'. Isn't that LanceDB's pitch?", points: [
+export const rehearseExtra: RehearseItem[] = [
+  { id: "rx-milvus", competitorId: "milvus", topic: "vector", q: "Milvus now reads Lance and Zilliz sells a 'Vector Lakebase'. Isn't that LanceDB's pitch?", points: [
     "It is, and that's validation: the biggest open-source vector database now treats Lance as a format the lake speaks.",
     "Milvus reads Lance read-only. Writes, versions, schema evolution and serving still go to Milvus's own storage, so it's a second system.",
     "LanceDB is the native engine for the format: one table for blobs, features, embeddings and indexes, used by training and retrieval." ] },
@@ -77,7 +77,7 @@ export const rehearseExtra = [
     "They're converging on Lance's feature list, and Hudi and Paimon adopted Lance as a file format to get there.",
     "In each, these are new opt-in features or proposals. In Lance they're native: random access, blobs, column evolution, versioned indexes.",
     "Lead with the workload, then show the bytes. The format that was designed for it still wins on the details." ] },
-  { id: "rx-spiral", topic: "rivals", q: "How would you position against Spiral and Vortex?", points: [
+  { id: "rx-spiral", competitorId: "spiral", topic: "rivals", q: "How would you position against Spiral and Vortex?", points: [
     "Take it seriously: an open format with strong backers, and robotics customers.",
     "Both beat Parquet on random access, and those are vendor numbers against Parquet, not against each other.",
     "Lance ships the table layer, indexes, blobs and a search engine today. Spiral is in early access." ] },
@@ -85,4 +85,58 @@ export const rehearseExtra = [
     "GPU owners are buying the software layers around data and compute.",
     "Both are partners: the Hub documents Lance, and Geneva runs on open-source Ray under the PyTorch Foundation.",
     "An open format is the safe bet when the layers around it change hands." ] },
+  // One dedicated prompt per new competitor. The two above that span several
+  // (convergence, consolidation) stay untagged.
+  { id: "rx-paimon", competitorId: "paimon", topic: "analytics-formats", q: "Paimon has blobs, vector indexes and column evolution. Isn't it Lance plus streaming?", points: [
+    "It's the table format converging fastest on Lance, and its own docs recommend Lance files for ML. That's an endorsement.",
+    "In Paimon these are newer opt-in modes: row tracking and data evolution have to be switched on, on a Flink-first streaming format.",
+    "In Lance they're native defaults, with a wider Python, Ray and PyTorch ecosystem and Western catalog support." ] },
+  { id: "rx-pinecone", competitorId: "pinecone", topic: "vector", q: "Pinecone is the default vector database. Why LanceDB?", points: [
+    "Pinecone is a strong managed retrieval service, but a separate silo: embeddings are copied in, and the source data lives elsewhere.",
+    "Lance keeps source data, blobs, features, embeddings and indexes in one versioned table, in an open format on your own storage.",
+    "Pinecone's own moves, BYOC and the Nexus pivot to 'knowledge', show buyers want the data in their own account. Lance has always worked that way." ] },
+  { id: "rx-qdrant", competitorId: "qdrant", topic: "vector", q: "Qdrant beats LanceDB on a filtered search benchmark. How do you respond?", points: [
+    "Concede it: on a hot, RAM-sized index on dedicated nodes, Qdrant can be faster.",
+    "That's a different cost point. Qdrant keeps data in RAM or on local disk, which gets expensive at hundreds of terabytes, with no dataset versioning.",
+    "Compare total cost and the number of copies of the data, not p50 on a warm benchmark. Lance's table also feeds training." ] },
+  { id: "rx-weaviate", competitorId: "weaviate", topic: "vector", q: "Weaviate has built-in vectorizers and agent memory. Isn't it easier?", points: [
+    "For a RAG app it can be, and LanceDB has embedding functions and hybrid search too.",
+    "Weaviate prices by stored vector dimensions, so cost grows with embedding size. Lance on object storage grows with bytes at storage prices.",
+    "The real difference is where the data lives: one open, versioned table you own, which matters once the same data feeds training and evaluation." ] },
+  { id: "rx-chroma", competitorId: "chroma", topic: "vector", q: "Chroma is embedded, open source and on object storage too. What's the difference?", points: [
+    "Similar deployment shape, and that confirms object storage is the right bet.",
+    "Different scope: Chroma is a retrieval index for apps, built for millions of small collections.",
+    "Lance is a format and engine for all of the AI data: blobs, features and embeddings in one versioned table, with random access for training and Spark, Ray and DuckDB integrations." ] },
+  { id: "rx-incumbents", competitorId: "search-incumbents", topic: "vector", q: "We already run Elastic, or MongoDB, and it does vectors now. Why add anything?", points: [
+    "Keep it for the app. Vector search is a feature of those products, and they win by default where they're already deployed.",
+    "The question is where the images, features and training sets live, and how they stay in sync with the search index.",
+    "Lance is the versioned source-of-truth table underneath. A search cluster can be one consumer of it, and training reads the same table." ] },
+  { id: "rx-deeplake", competitorId: "deeplake", topic: "rivals", q: "Deep Lake did versioned multimodal datasets with PyTorch loaders first. What's different about Lance?", points: [
+    "Credit them for being early to the idea.",
+    "Lance is an open table format many engines read natively, with random access, vector and full-text indexes, and zero-copy column evolution in the format.",
+    "Deep Lake has repositioned several times, most recently as continual learning infrastructure. Lance has petabyte-scale references and a steady thesis." ] },
+  { id: "rx-pixeltable", competitorId: "pixeltable", topic: "rivals", q: "Pixeltable's computed columns sound like Geneva. Why pay for LanceDB?", points: [
+    "It's the same good idea: declarative, incremental derived columns with lineage, from founders with real format pedigree.",
+    "Pixeltable targets a single application backend, not petabyte scans or training-throughput reads.",
+    "Geneva runs those backfills distributed on Ray, over an open columnar format built for billions of rows." ] },
+  { id: "rx-aperturedb", competitorId: "aperturedb", topic: "rivals", q: "ApertureDB does graph and vector search over images. Doesn't Lance lack the graph?", points: [
+    "Lance models relationships as columns and joins through engines like DuckDB or Spark.",
+    "If the core need is graph traversal over annotations at moderate scale, a graph-vector database can be the right fit. Say so.",
+    "Most training and search workloads need scale, an open format and object-storage cost more than a graph, and that's Lance's ground." ] },
+  { id: "rx-daft", competitorId: "daft", topic: "partners", q: "Daft claims to be 18 times faster than Spark. Is it a threat to LanceDB?", points: [
+    "Mostly a partner. Daft is compute, not storage, and it reads and writes Lance natively, including merge_columns.",
+    "It doesn't replace Geneva: Geneva is versioned, incremental feature engineering bound to the Lance table. They compose.",
+    "The one thing to watch is Eventual's robotics curation product, which could overlap with LanceDB in physical AI accounts." ] },
+  { id: "rx-ray", competitorId: "ray", topic: "partners", q: "A GPU cloud is buying Anyscale. Is depending on Ray a risk for LanceDB?", points: [
+    "Nscale agreed to acquire Anyscale in July 2026. Ray itself isn't part of the deal.",
+    "Ray is governed by the PyTorch Foundation, and Nscale says it will support it there.",
+    "Geneva depends on open-source Ray, not Anyscale's product. Ray Data reads Lance natively, and lance-ray adds distributed writes." ] },
+  { id: "rx-huggingface", competitorId: "huggingface", topic: "partners", q: "Nvidia is buying Hugging Face. Does that threaten Lance's distribution?", points: [
+    "Nvidia agreed to the $12.93B deal on September 3, 2026, and said the Hub will stay an open, multi-cloud platform.",
+    "The Hub documents Lance as a supported format: scan, filter, fetch blobs and vector search on hf:// paths.",
+    "The Hub distributes and Lance makes the data queryable in place. A bigger, Nvidia-backed Hub is more reach for Lance datasets." ] },
+  { id: "rx-hyperscalers", competitorId: "hyperscaler-lakehouses", topic: "platforms", q: "Google and Microsoft both say 'multimodal lakehouse' now. Is the category commoditized?", points: [
+    "They've adopted the vocabulary LanceDB helped popularize, which validates the category.",
+    "Both model media as pointers to objects, like BigQuery ObjectRef, plus a separate vector service.",
+    "Lance stores the bytes, embeddings and indexes in one versioned table with random access, and it runs on every cloud's object storage." ] },
 ]

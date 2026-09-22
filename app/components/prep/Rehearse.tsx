@@ -1,11 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { TOPICS } from "@/app/lib/prep";
 import TopicFilter, { topicsOf } from "@/app/components/prep/TopicFilter";
 import { updateProgress, useProgress } from "@/app/components/prep/progress";
 
-type Prompt = { id: string; topic: string; q: string; points: readonly string[] };
+type Prompt = { id: string; topic: string; q: string; points: readonly string[]; competitorId?: string };
 
 const TARGET = 90; // seconds: long enough for three points, short enough to keep the room
 
@@ -70,14 +71,22 @@ export default function Rehearse({ prompts }: { prompts: readonly Prompt[] }) {
           </div>
 
           {shown ? (
-            <ol className="space-y-3 mb-6">
-              {p.points.map((pt, n) => (
-                <li key={n} className="flex gap-3">
-                  <span className="mono text-[11px] pt-1" style={{ color: "var(--index)" }}>{n + 1}</span>
-                  <p className="text-[15px] leading-relaxed text-[var(--body)]">{pt}</p>
-                </li>
-              ))}
-            </ol>
+            <div className="mb-6">
+              <ol className="space-y-3">
+                {p.points.map((pt, n) => (
+                  <li key={n} className="flex gap-3">
+                    <span className="mono text-[11px] pt-1" style={{ color: "var(--index)" }}>{n + 1}</span>
+                    <p className="text-[15px] leading-relaxed text-[var(--body)]">{pt}</p>
+                  </li>
+                ))}
+              </ol>
+              {p.competitorId && (
+                <Link href={`/prep/competitors/${p.competitorId}`}
+                      className="block w-fit mono text-[11px] mt-4 hover:underline" style={{ color: "var(--video)" }}>
+                  Read the full profile →
+                </Link>
+              )}
+            </div>
           ) : (
             <button type="button" className="pill mb-6" style={{ color: "var(--bright)", borderColor: "var(--haze)" }}
                     onClick={() => { setShown(true); setRunning(false); }}>

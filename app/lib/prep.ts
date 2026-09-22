@@ -9,7 +9,7 @@ import { cards } from "@/content/prep/cards";
 import { quiz } from "@/content/prep/quiz";
 import { rehearse } from "@/content/prep/rehearse";
 import { cardsExtra, quizExtra, rehearseExtra } from "@/content/prep/study-extra";
-import type { CompetitorDetail, CompetitorEntry, QuizItem, SourceEntry, StudyCard } from "@/content/prep/types";
+import type { CompetitorDetail, CompetitorEntry, QuizItem, RehearseItem, SourceEntry, StudyCard } from "@/content/prep/types";
 
 export type Source = SourceEntry;
 
@@ -27,7 +27,7 @@ export const allCompetitors: CompetitorEntry[] = [
 /** Study decks: the original items first, then the competitor deep-dive's. */
 export const allCards: StudyCard[] = [...cards, ...cardsExtra];
 export const allQuiz: QuizItem[] = [...quiz, ...quizExtra];
-export const allRehearse = [...rehearse, ...rehearseExtra];
+export const allRehearse: RehearseItem[] = [...rehearse, ...rehearseExtra];
 
 export function competitorById(id: string): CompetitorEntry | undefined {
   return allCompetitors.find((c) => c.id === id);
