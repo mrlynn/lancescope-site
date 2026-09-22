@@ -70,3 +70,6 @@ export type MarketPoint = { id: string; label: string; x: number; y: number; not
 /** A proof point added after the original list. `competitorIds` link the
  *  profiles it bears on. */
 export type ProofItem = { id: string; label: string; text: string; sourceIds: readonly string[]; competitorIds?: readonly string[] };
+
+/** A note on who else occupies one layer of the stack explorer. */
+export type StackNote = { competitorIds: readonly string[]; text: string };
