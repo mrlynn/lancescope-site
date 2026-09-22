@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Head from "@/app/components/prep/Head";
 import Flashcards from "@/app/components/prep/Flashcards";
-import { cards } from "@/content/prep/cards";
+import { allCards as cards } from "@/app/lib/prep";
 
 export const metadata: Metadata = { title: "Cards · Prep" };
 

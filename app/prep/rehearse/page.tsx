@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Head from "@/app/components/prep/Head";
 import Rehearse from "@/app/components/prep/Rehearse";
-import { rehearse } from "@/content/prep/rehearse";
+import { allRehearse as rehearse } from "@/app/lib/prep";
 
 export const metadata: Metadata = { title: "Rehearse · Prep" };
 

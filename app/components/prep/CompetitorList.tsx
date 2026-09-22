@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { GROUPS } from "@/app/lib/prep";
 import SourceLinks from "@/app/components/prep/SourceLinks";
@@ -21,7 +22,7 @@ export function Threat({ score }: { score: number }) {
 }
 
 /** Every competitor, filterable by group and sortable by threat. */
-export default function CompetitorList({ items }: { items: readonly Competitor[] }) {
+export default function CompetitorList({ items, detailIds = [] }: { items: readonly Competitor[]; detailIds?: string[] }) {
   const [group, setGroup] = useState<string | null>(null);
   const [byThreat, setByThreat] = useState(false);
   const shown = items
@@ -52,7 +53,7 @@ export default function CompetitorList({ items }: { items: readonly Competitor[]
           <article key={c.id} id={c.id} className="panel p-5 scroll-mt-28">
             <div className="flex items-start justify-between gap-3 flex-wrap mb-3">
               <div>
-                <h3 className="text-[17px] font-bold text-[var(--bright)]">{c.name}</h3>
+                <h3 className="text-[17px] font-bold text-[var(--bright)]"><Link href={`/prep/competitors/${c.id}`} className="hover:text-[var(--video)]">{c.name}</Link></h3>
                 <div className="mono text-[10px] uppercase tracking-[0.14em] text-[var(--dim)] mt-1">
                   {GROUPS[c.group] ?? c.group}
                 </div>
@@ -69,6 +70,10 @@ export default function CompetitorList({ items }: { items: readonly Competitor[]
               </div>
             </dl>
             <SourceLinks ids={c.sourceIds} className="mt-4" />
+            <Link href={`/prep/competitors/${c.id}`}
+                  className="inline-block mono text-[11px] mt-4 hover:underline" style={{ color: "var(--video)" }}>
+              {detailIds.includes(c.id) ? "Full profile →" : "Profile →"}
+            </Link>
           </article>
         ))}
       </div>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Head from "@/app/components/prep/Head";
-import { sources } from "@/content/prep/sources";
 import { notes } from "@/content/prep/notes";
 import { proof } from "@/content/prep/proof";
-import { competitors } from "@/content/prep/competitors";
+import { competitorDetail } from "@/content/prep/competitors-detail";
+import { allCompetitors, allSources } from "@/app/lib/prep";
 
 export const metadata: Metadata = { title: "Sources · Prep" };
 
@@ -15,7 +15,7 @@ function citedBy(): Map<string, string[]> {
     (ids ?? []).forEach((id) => m.set(id, [...(m.get(id) ?? []), label]));
   notes.forEach((n) => add("sourceIds" in n ? n.sourceIds : undefined, `Briefing: ${n.title}`));
   proof.forEach((p) => add(p.sourceIds, `Proof: ${p.label}`));
-  competitors.forEach((c) => add(c.sourceIds, `Competitor: ${c.name}`));
+  allCompetitors.forEach((c) => add([...new Set([...c.sourceIds, ...(competitorDetail[c.id]?.sourceIds ?? [])])], `Competitor: ${c.name}`));
   return m;
 }
 
@@ -26,14 +26,14 @@ export default function Sources() {
       <Head eyebrow="Sources" title="Where the claims come from"
             lead="Research is current as of September 2026. Where a claim comes from a vendor, the text says so." />
       <ul className="space-y-3">
-        {sources.map((s) => (
+        {allSources.map((s) => (
           <li key={s.id} id={s.id} className="panel p-4">
             <a href={s.url} target="_blank" rel="noreferrer"
                className="text-[15px] font-semibold text-[var(--bright)] hover:text-[var(--video)]">
               {s.title}
             </a>
             <div className="mono text-[11px] text-[var(--haze)] mt-1">
-              {s.publisher}{"date" in s && s.date ? ` · ${s.date}` : ""}
+              {s.publisher}{s.date ? ` · ${s.date}` : ""}
             </div>
             {cites.get(s.id) && (
               <div className="flex flex-wrap gap-1.5 mt-3">

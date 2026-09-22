@@ -2,24 +2,20 @@ import Link from "next/link";
 import Head, { H2, Say } from "@/app/components/prep/Head";
 import { notes } from "@/content/prep/notes";
 import { why } from "@/content/prep/why";
-import { cards } from "@/content/prep/cards";
-import { quiz } from "@/content/prep/quiz";
-import { rehearse } from "@/content/prep/rehearse";
-import { competitors } from "@/content/prep/competitors";
+import { allCards as cards, allCompetitors, allQuiz as quiz, allRehearse as rehearse, allSources } from "@/app/lib/prep";
 import { ask } from "@/content/prep/ask";
-import { sources } from "@/content/prep/sources";
 
 const STEPS = [
   { href: "/prep/why", title: "Why AI needs all four", text: "Scans, random access, wide blobs and growing columns, traced through one table's year, with a backfill calculator." },
   { href: "/prep/stack", title: "Stack explorer", text: "Five layers, analytics stack against Lance stack, and the Iceberg metadata tree next to Lance's." },
   { href: "/prep/market", title: "Market map and proof", text: "Where everyone sits, and the customer and benchmark evidence to quote." },
-  { href: "/prep/competitors", title: "Competitors", text: `${competitors.length} rivals and neighbours, threat-rated, with the Lance angle on each.` },
+  { href: "/prep/competitors", title: "Competitors", text: `${allCompetitors.length} rivals and neighbours, threat-rated, each with a full profile.` },
   { href: "/prep/notes", title: "Briefing notes", text: `${notes.length} notes: the thesis, the room, the Iceberg question and your edge.` },
   { href: "/prep/cards", title: "Flashcards", text: `${cards.length} cards across every topic. Progress is kept in this browser.` },
   { href: "/prep/quiz", title: "Quiz", text: `${quiz.length} multiple-choice questions with the reasoning behind each answer.` },
   { href: "/prep/rehearse", title: "Rehearse", text: `${rehearse.length} questions to answer out loud against a clock, then check your points.` },
   { href: "/prep/ask", title: "Questions to ask Chang", text: `${ask.length} questions that show the homework.` },
-  { href: "/prep/sources", title: "Sources", text: `${sources.length} sources, each with what cites it.` },
+  { href: "/prep/sources", title: "Sources", text: `${allSources.length} sources, each with what cites it.` },
 ];
 
 export default function PrepHome() {
