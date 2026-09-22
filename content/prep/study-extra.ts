@@ -43,6 +43,21 @@ export const cardsExtra: StudyCard[] = [
   { id: "cx-objectref", competitorId: "hyperscaler-lakehouses", topic: "platforms", q: "What is BigQuery ObjectRef?", a: "A column type, GA in April 2026, that points at Cloud Storage objects from inside tables, including managed Iceberg. The media stay as pointers." },
   { id: "cx-hyperscaler-answer", competitorId: "hyperscaler-lakehouses", topic: "platforms", q: "Google and Microsoft now say 'multimodal lakehouse'. Your answer?", a: "Both model media as pointers plus a separate vector service. Lance stores bytes, embeddings and indexes in one versioned table with random access, on any cloud." },
   { id: "cx-paimon-answer", competitorId: "paimon", topic: "analytics-formats", q: "Paimon has blobs, vectors and column evolution. Isn't it Lance plus streaming?", a: "It's converging on Lance's feature list, and its docs describe Lance as optimized for ML and vector search. In Lance these are native defaults with a wider AI engine ecosystem; in Paimon they're newer opt-in modes on a Flink-first format." },
+  // Ecosystem proof (proof-extra.ts): one card per project that supports Lance,
+  // asked from the proof side rather than repeating the competitor cards above,
+  // plus two on using the proof in the room. Wording and quotes are from the
+  // projects' own docs, as checked for the proof points.
+  { id: "cx-eco-hudi", competitorId: "hudi", topic: "proof", q: "Which analytics table format added Lance as a file format in 2026?", a: "Apache Hudi, in 1.2 (June 2026), alongside new VECTOR and BLOB types." },
+  { id: "cx-eco-paimon", competitorId: "paimon", topic: "proof", q: "How do Apache Paimon's own docs describe Lance?", a: "As a file format 'optimized for machine learning and vector search workloads'. Paimon lists it among its data file formats." },
+  { id: "cx-eco-milvus", competitorId: "milvus", topic: "proof", q: "Which rival vector database indexes Lance tables in place?", a: "Milvus 3.0, through read-only External Collections (July 2026). A rival treating Lance as a format the lake speaks." },
+  { id: "cx-eco-polaris", competitorId: "catalogs", topic: "proof", q: "How does Apache Polaris support Lance?", a: "It registers Lance tables as generic tables through the Lance Namespace. Its January 2026 post names Spark, Ray, LanceDB, Trino, Flink and DuckDB as engines." },
+  { id: "cx-eco-gravitino", competitorId: "catalogs", topic: "proof", q: "How does Apache Gravitino support Lance?", a: "Its generic lakehouse catalog manages Lance tables, and since 1.1 it has shipped a Lance REST service implementing the Lance REST spec." },
+  { id: "cx-eco-hf", competitorId: "huggingface", topic: "proof", q: "How do Hugging Face's own docs describe Lance?", a: "As 'an open multimodal lakehouse table format for AI'. The Hub supports scanning, filtering, fetching blobs and vector search on hf:// paths." },
+  { id: "cx-eco-ray", competitorId: "ray", topic: "proof", q: "Can Ray Data read a specific version of a Lance table?", a: "Yes. read_lance takes a version, as a number or a tag, and a list of columns." },
+  { id: "cx-eco-daft", competitorId: "daft", topic: "proof", q: "Which Daft operation adds derived columns to a Lance table in place?", a: "merge_columns, from the daft-lance package. Daft also does version reads, vector search and filter pushdown on Lance." },
+  { id: "cx-eco-doris", topic: "proof", q: "What does Apache Doris 4.2 add for Lance?", a: "Multimodal lakehouse support for Iceberg, Paimon and Lance, merged into the 4.2 release branch and due at the end of September 2026." },
+  { id: "cx-eco-weakness", topic: "proof", q: "Someone says ecosystem breadth is Lance's weakness. Your answer?", a: "Concede it's the fair weakness, then say it's closing: Hudi, Paimon, Milvus, Polaris, Gravitino, the Hugging Face Hub, Ray, Daft and Apache Doris all support Lance, several of them rivals." },
+  { id: "cx-eco-reach", topic: "proof", q: "How should you quote the ecosystem proof?", a: "As reach, not adoption. A project documenting Lance support isn't evidence of usage, so don't turn it into customer numbers." },
 ]
 
 export const quizExtra: QuizItem[] = [
