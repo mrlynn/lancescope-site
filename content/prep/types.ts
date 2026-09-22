@@ -52,3 +52,6 @@ export type QuizItem = {
   id: string; topic: string; q: string; options: readonly string[]; answer: number; why: string;
   competitorId?: string;
 };
+
+/** A question to answer out loud, with the points a good answer hits. */
+export type RehearseItem = { id: string; topic: string; q: string; points: readonly string[]; competitorId?: string };
